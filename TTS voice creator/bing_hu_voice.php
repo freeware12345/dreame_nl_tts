@@ -28,7 +28,7 @@ if (file_exists($filePath)) {
 // IDE ÍRD BE AZ API KULCSODAT!
 $apiKey = "API_KULCS"; 
 
-$AccessTokenUri = "https://northeurope.api.cognitive.microsoft.com/sts/v1.0/issueToken";
+$AccessTokenUri = "API_KULCS";
 $ttsServiceUri = "https://northeurope.tts.speech.microsoft.com/cognitiveservices/v1";
 
 // 1. LÉPÉS: Access Token beszerzése
