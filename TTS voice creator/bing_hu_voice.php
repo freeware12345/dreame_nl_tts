@@ -2,7 +2,7 @@
 // Ellenőrizzük, hogy megvan-e a szükséges paraméterszám
 if ($argc < 4) {
     echo "Használat: bing_hu_voice.php \"szöveg\" fájlnév hang\n";
-    echo "Példa: php bing_hu_voice.php \"Szia világ\" kimenet Tamas\n";
+    echo "Példa: php bing_hu_voice.php \"Szia világ\" kimenet Fenna\n";
     exit(1);
 }
 
@@ -55,30 +55,24 @@ if ($access_token === false) {
 $doc = new DOMDocument();
 $root = $doc->createElement("speak");
 $root->setAttribute("version", "1.0");
-$root->setAttribute("xml:lang", "hu-HU");
+$root->setAttribute("xml:lang", "nl-NL");
 
 $voice = $doc->createElement("voice");
-$voice->setAttribute("xml:lang", "hu-HU");
+$voice->setAttribute("xml:lang", "nl-NL");
 
 switch ($hang) {
-    case "Tamas":
-        $voice->setAttribute("name", "hu-HU-TamasNeural");
+    case "Fenna":
+        $voice->setAttribute("name", "nl-NL-FennaNeural");
         break;
-    case "Noemi":
-        $voice->setAttribute("name", "hu-HU-NoemiNeural");
-        break;
-    case "Jenny":
-        $voice->setAttribute("name", "en-US-JennyMultilingualV2Neural");
-        break;
-    case "Ryan":
-        $voice->setAttribute("name", "en-US-RyanMultilingualNeural");
+    case "Maarten":
+        $voice->setAttribute("name", "nl-NL-MaartenNeural");
         break;
     default:
-        throw new Exception("Ismeretlen hang: $hang. (Elérhető: Tamas, Noemi, Jenny, Ryan)");
+        throw new Exception("Ismeretlen hang: $hang. (Elérhető: Fenna, Maarten)");
 }
 
 $lang = $doc->createElement("lang");
-$lang->setAttribute("xml:lang", "hu-HU");
+$lang->setAttribute("xml:lang", "nl-NL");
 $text = $doc->createTextNode($szoveg);
 $lang->appendChild($text);
 $voice->appendChild($lang);
