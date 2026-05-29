@@ -3,36 +3,36 @@ import os
 import subprocess
 import sys
 
-# CSV fájl elérési útjának beállítása
-csv_path = "all_dreame_hu.csv"
+# CSV bestand instellen op jouw Nederlandse bestand
+csv_path = "all_dreame_nl.csv"
 
-# Hang paraméterének beállítása
-voice_options = ["Tamas", "Noemi", "Jenny", "Ryan"]
-voice = sys.argv[1] if len(sys.argv) > 1 else input(f"Kérlek válassz egy hangot ({'/'.join(voice_options)}): ").capitalize()
+# Nederlandse stemopties instellen (Fenna of Maarten)
+voice_options = ["Fenna", "Maarten"]
+voice = sys.argv[1] if len(sys.argv) > 1 else input(f"Kies een stem ({'/'.join(voice_options)}): ").capitalize()
 
-# Automatikus konverzió, ha a második paraméter --convert
-run_conversion = 'igen' if len(sys.argv) > 2 and sys.argv[2] == '--convert' else input("Futtassuk a konvertálást a feldolgozás végén? (igen/nem): ")
+# Automatische conversie aanroepen na het downloaden
+run_conversion = 'igen' if len(sys.argv) > 2 and sys.argv[2] == '--convert' else input("Conversie uitvoeren na het downloaden? (igen/nem): ")
 
-# Ellenőrizzük, hogy létezik-e a CSV fájl
+# Controleer of het CSV-bestand bestaat
 if not os.path.exists(csv_path):
-    print(f"A fájl nem található: {csv_path}")
+    print(f"Bestand niet gevonden: {csv_path}")
     sys.exit()
 
-# Ellenőrizzük, hogy a hang paraméter helyes-e
+# Controleer of de gekozen stem geldig is
 if voice not in voice_options:
-    voice = input(f"Kérlek válassz egy hangot ({'/'.join(voice_options)}): ").capitalize()
+    voice = input(f"Kies een stem ({'/'.join(voice_options)}): ").capitalize()
 
-# CSV fájl beolvasása és feldolgozása
+# CSV bestand inlezen en regel voor regel verwerken
 with open(csv_path, newline='', encoding='utf-8') as csvfile:
     csvreader = csv.DictReader(csvfile, delimiter=';')
     for row in csvreader:
         print(f"{row['Text']}", end='')
-        # A bing_hu_voice.php szkript futtatása a szöveggel és a hanggal
+        # Start het PHP-script op de achtergrond met de Nederlandse tekst en stem
         php_command = f'php bing_hu_voice.php "{row["Text"]}" "{row["Code"]}" {voice}'
         subprocess.run(php_command, shell=True)
         print(" ... done!")
 
-# Konverzió
+# Start de conversie naar OGG-formaat via convert.py
 if run_conversion.lower() == 'igen':
     py_command = f"python convert.py {voice}"
     subprocess.run(py_command, shell=True)
