@@ -36,4 +36,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dreame_voicepack_nl
-          path: 'TTS voice creator/*.tar.gz'
+          path: '**/*.tar.gz'
+
