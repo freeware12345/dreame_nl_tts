@@ -1,0 +1,38 @@
+name: Create Voice Package
+on:
+  workflow_dispatch:
+    inputs:
+      voice:
+        description: 'Kies stem (Fenna of Maarten)'
+        required: true
+        default: 'Fenna'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code ophalen
+        uses: actions/checkout@v4
+
+      - name: PHP en Python installeren
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Systeertools installeren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg vorbis-tools
+
+      - name: Stemmen genereren via Azure
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+        run: |
+          sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
+          python ttscreate.py ${{ github.event.inputs.voice }} --convert
+
+      - name: Bestand bewaren als download
+        uses: actions/upload-artifact@v4
+        with:
+          name: dreame_voicepack_nl
+          path: ./*.tar.gz
