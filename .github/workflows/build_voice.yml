@@ -25,12 +25,10 @@ jobs:
           sudo apt-get install -y ffmpeg vorbis-tools
 
       - name: Stemmen genereren via Azure
-        defaults:
-          run:
-            working-directory: 'TTS voice creator'
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
+          cd "TTS voice creator"
           sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert
 
