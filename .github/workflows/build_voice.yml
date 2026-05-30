@@ -27,7 +27,7 @@ jobs:
       - name: Stemmen genereren via Azure
         defaults:
           run:
-            working-directory: "TTS voice creator"
+            working-directory: 'TTS voice creator'
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
@@ -38,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dreame_voicepack_nl
-          path: "TTS voice creator"/*.tar.gz
+          path: 'TTS voice creator/*.tar.gz'
