@@ -18,6 +18,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          ini-values: allow_url_fopen=On, max_execution_time=300
 
       - name: Systeertools installeren
         run: |
@@ -33,10 +34,10 @@ jobs:
           # Fix de API-sleutel in het PHP-bestand
           sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
           
-          # Forceer het Python-script om naar jouw Nederlandse CSV te kijken in plaats van de Hongaarse
+          # Schakel over naar de Nederlandse CSV
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Maak alvast de juiste map aan voor de stem in kleine letters (voorkomt PHP mappen-fout)
+          # Maak de map aan voor de audiobestanden
           STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           mkdir -p "$STEM_KLEIN"
           
@@ -48,7 +49,6 @@ jobs:
           cd "TTS voice creator"
           STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           
-          # Controleer waar de bestanden staan en pak ze in
           if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
             cd "$STEM_KLEIN"
             tar -czf ../../dreame_voicepack_nl.tar.gz ./*
