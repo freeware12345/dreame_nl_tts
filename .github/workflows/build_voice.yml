@@ -1,109 +1,56 @@
-name: Create Voice Package
+name: Test Azure Key Only
 on:
   workflow_dispatch:
-    inputs:
-      voice:
-        description: 'Kies stem (Fenna of Maarten)'
-        required: true
-        default: 'Fenna'
 
 jobs:
-  build:
+  test_key:
     runs-on: ubuntu-latest
     steps:
-      - name: Code ophalen
-        uses: actions/checkout@v4
-
-      - name: PHP en Python installeren
+      - name: PHP installeren voor test
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
           extensions: curl
 
-      - name: Systeertools installeren
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg vorbis-tools
-
-      - name: Stemmen genereren via Azure
+      - name: Voer Azure Sleutel-test uit
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
-          cd "TTS voice creator"
-          
-          # Schakel over naar de Nederlandse CSV in het Python-script
-          sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
-          
-          # Herschrijf bing_hu_voice.php volledig naar een stabiele cURL-verbinding
-          cat << 'EOF' > bing_hu_voice.php
+          cat << 'EOF' > test_azure.php
           <?php
-          if ($argc < 4) exit(1);
-          $szoveg = $argv[1];
-          $mentes = $argv[2];
-          $hang = $argv[3];
-          $dir = strtolower($hang);
-          $filePath = $dir . "/" . $mentes . ".wav";
-          
-          if (file_exists($filePath)) exit(0);
-          if (!is_dir($dir)) mkdir($dir, 0777, true);
-
           $apiKey = getenv('AZURE_SPEECH_KEY');
+          echo "Sleutellengte controleren: " . strlen($apiKey) . " tekens.\n";
           
-          // Stap 1: Haal de toegangstoken op via cURL
-          $ch = curl_init("https://microsoft.com");
-          curl_setopt($ch, CURLOPT_POST, 1);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array("Ocp-Apim-Subscription-Key: " . $apiKey, "Content-Length: 0"));
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          $access_token = curl_exec($ch);
-          curl_close($ch);
-
-          if (!$access_token) {
-              echo "Token verbinding mislukt\n";
-              exit(1);
+          if (strlen($apiKey) !== 32) {
+              echo "FOUT: Een Azure-sleutel moet exact 32 tekens lang zijn!\n";
           }
 
-          // Stap 2: SSML opbouwen voor de Nederlandse stem
-          $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
-          $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . htmlspecialchars($szoveg, ENT_XML1) . "</lang></voice></speak>";
-
-          // Stap 3: Audio downloaden via cURL
+          echo "Verbinding maken met Microsoft Azure (North Europe)...\n";
+          
           $ch = curl_init("https://microsoft.com");
           curl_setopt($ch, CURLOPT_POST, 1);
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
           curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-              "Content-type: application/ssml+xml",
-              "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
-              "Authorization: Bearer " . $access_token,
-              "User-Agent: TTSPHP"
+              "Ocp-Apim-Subscription-Key: " . $apiKey, 
+              "Content-Length: 0"
           ));
           curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          $result = curl_exec($ch);
+          curl_setopt($ch, CURLOPT_HEADER, true); // Vraag om de volledige serverreactie
+          
+          $response = curl_exec($ch);
+          $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
           curl_close($ch);
 
-          if ($result) {
-              file_put_contents($filePath, $result);
+          echo "HTTP Statuscode van Microsoft: " . $http_code . "\n";
+          echo "Volledige reactie van de server:\n";
+          echo "----------------------------------------\n";
+          echo $response . "\n";
+          echo "----------------------------------------\n";
+
+          if ($http_code === 200) {
+              echo "SUCCES: Je sleutel en regio zijn 100% correct!\n";
+          } else {
+              echo "FOUT: Microsoft weigert de verbinding.\n";
           }
           ?>
           EOF
-          
-          # Start het genereren van de stemmen
-          echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
-
-      - name: Handmatig inpakken voor Dreame
-        run: |
-          cd "TTS voice creator"
-          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
-          
-          # Pak de gemaakte OGG-bestanden gegarandeerd in
-          if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
-            cd "$STEM_KLEIN"
-            tar -czf ../../dreame_voicepack_nl.tar.gz ./*
-          else
-            tar -czf ../dreame_voicepack_nl.tar.gz ./*.ogg ./*.wav 2>/dev/null || tar -czf ../dreame_voicepack_nl.tar.gz ./* || true
-          fi
-
-      - name: Bestand bewaren als download
-        uses: actions/upload-artifact@v4
-        with:
-          name: dreame_voicepack_nl
-          path: ./dreame_voicepack_nl.tar.gz
+          php test_azure.php
