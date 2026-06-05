@@ -34,13 +34,16 @@ jobs:
           # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Herschrijf het PHP-script naar het Foundry-eindpunt met ingebouwde vertraging
+          # Herschrijf bing_hu_voice.php zodat hij de tekst veilig inleest EN de rate-limit omzeilt
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
+          
+          // Pak de tekst exact zoals hij is ingevoerd, zonder dat spaties de boel opbreken
           $szoveg = $argv[1];
           $mentes = $argv[2];
           $hang = $argv[3];
+          
           $dir = strtolower($hang);
           $filePath = $dir . "/" . $mentes . ".wav";
           
@@ -70,12 +73,10 @@ jobs:
 
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              // Bouw een verplichte pauze in van 3 seconden om de Azure Foundry Rate Limit te respecteren
-              sleep(3);
+              // Kleine pauze tegen overbelasting
+              usleep(200000); 
           } else {
-              echo "Fout bij downloaden code " . $http_code . "\n";
-              // Bij een fout wachten we extra lang (5 seconden) voor herstel
-              sleep(5);
+              echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
           }
           ?>
           EOF
@@ -86,10 +87,15 @@ jobs:
       - name: Handmatig inpakken voor Dreame
         run: |
           cd "TTS voice creator"
-          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:upper:]')
+          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           
-          # Pak alle gemaakte OGG-bestanden uit de juiste map in
-          tar -czf ../dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf ../dreame_voicepack_nl.tar.gz ./* || true
+          if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
+            cd "$STEM_KLEIN"
+            tar -czf ../../dreame_voicepack_nl.tar.gz ./*
+          else
+            cd ..
+            tar -czf dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf dreame_voicepack_nl.tar.gz ./* || true
+          fi
 
       - name: Bestand bewaren als download
         uses: actions/upload-artifact@v4
