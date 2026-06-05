@@ -29,24 +29,31 @@ jobs:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
           cd "TTS voice creator"
+          # Injecteer de geheime API-sleutel op de juiste plek
           sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
+          # Fix de verouderde Microsoft Azure links naar het universele Speech-eindpunt
+          sed -i 's|https://microsoft.com|https://microsoft.com|g' bing_hu_voice.php
+          sed -i 's|https://microsoft.com|https://microsoft.com|g' bing_hu_voice.php
+          
+          # Start het genereren van de stemmen
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert
 
       - name: Handmatig inpakken voor Dreame
         run: |
           cd "TTS voice creator"
-          # Pak de map met de naam van de stem (in kleine letters) volledig in
           STEM_MAP=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
-          if [ -dir "$STEM_MAP" ]; then
+          
+          # Forceer het inpakken van de gemaakte OGG-bestanden naar een echt archief
+          if [ -d "$STEM_MAP" ]; then
             cd "$STEM_MAP"
             tar -czf ../../dreame_voicepack_nl.tar.gz ./*
           else
-            # Mocht het script de bestanden in de hoofdmap hebben gezet
-            tar -czf ../dreame_voicepack_nl.tar.gz ./*.ogg ./*.wav 2>/dev/null || true
+            cd ..
+            tar -czf dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf dreame_voicepack_nl.tar.gz ./*
           fi
 
       - name: Bestand bewaren als download
         uses: actions/upload-artifact@v4
         with:
           name: dreame_voicepack_nl
-          path: ./*.tar.gz
+          path: ./dreame_voicepack_nl.tar.gz
