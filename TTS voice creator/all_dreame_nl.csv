@@ -387,20 +387,20 @@ s436;Signaaltoon.
 459;De dweilpad zit niet op zijn plek. Zorg ervoor dat de dweilpad weer op de robot is gemonteerd.
 460;De geurmodule van de vuilwatertank is verlopen. Vervang deze op tijd.
 463;Welkom bij de Dreame robotstofzuiger! Open de klep, scan de QR-code en download de Dreame-app voor verdere stappen.
-464;Plaats de robot voor de start op het basisstation om de taak succesvol uit te voeren. Als u "Opladen gestart" hoort, staat hij goed.
-465;Plaats de robot voor de start op het basisstation. Als u "Opladen gestart" hoort, staat hij goed.
+464;Plaats de robot voor de start op het basisstation om de taak succesvol uit te voeren. Als u 'Opladen gestart' hoort, staat hij goed.
+465;Plaats de robot voor de start op het basisstation. Als u 'Opladen gestart' hoort, staat hij goed.
 466;Open de deuren van de kamers die schoongemaakt moeten worden en haal obstakels van de vloer.
 467;Breng de robot terug naar het basisstation en start het maken van de kaart opnieuw.
 468;Controleer in de app of de kaartgegevens nauwkeurig zijn.
-469;Probeer eens tegen de robot te zeggen: "Oké Dreame, start met schoonmaken".
-470;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: "Oké Dreame, start met schoonmaken".
-471;Probeer eens tegen de robot te zeggen: "Oké Dreame, verhoog de zuigkracht".
-472;Probeer eens tegen de robot te zeggen: "Oké Dreame, verhoog de vochtigheid van de dweil".
-473;Probeer eens tegen de robot te zeggen: "Oké Dreame, stofzuigen en dweilen" om van modus te veranderen.
-474;Probeer eens tegen de robot te zeggen: "Oké Dreame, start met dweilen" om van modus te veranderen.
-475;Probeer eens tegen de robot te zeggen: "Oké Dreame, kom hier schoonmaken" om een lokale reiniging te starten.
-476;Probeer eens tegen de robot te zeggen: "Oké Dreame, eerst stofzuigen dan dweilen" om van modus te veranderen.
-477;Probeer eens tegen de robot te zeggen: "Oké Dreame, start met schoonmaken" om een volledige reiniging te starten.
+469;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken'.
+470;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken'.
+471;Probeer eens tegen de robot te zeggen: 'Oké Dreame, verhoog de zuigkracht'.
+472;Probeer eens tegen de robot te zeggen: 'Oké Dreame, verhoog de vochtigheid van de dweil'.
+473;Probeer eens tegen de robot te zeggen: 'Oké Dreame, stofzuigen en dweilen' om van modus te veranderen.
+474;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met dweilen' om van modus te veranderen.
+475;Probeer eens tegen de robot te zeggen: 'Oké Dreame, kom hier schoonmaken' om een lokale reiniging te starten.
+476;Probeer eens tegen de robot te zeggen: 'Oké Dreame, eerst stofzuigen dan dweilen' om van modus te veranderen.
+477;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken' om een volledige reiniging te starten.
 478;De robot keert terug naar het basisstation om de dweilpads te wassen en vervolgt daarna zijn taak.
 479;Ik ben er klaar voor. Start die taak alstublieft opnieuw.
 480;Controleer of er voldoende water in de schoonwatertank zit om de volgende taken succesvol uit te voeren.
@@ -412,7 +412,7 @@ s436;Signaaltoon.
 486;De dweilpads worden gereinigd, daarna volgt het automatische legen.
 487;Zorg ervoor dat de robot op het basisstation staat.
 s488;Signaaltoon.
-489;Ik sta momenteel in de intelligente modus. Zeg "Beëindig de taak" en probeer het daarna opnieuw.
+489;Ik sta momenteel in de intelligente modus. Zeg 'Beëindig de taak' en probeer het daarna opnieuw.
 490;Oké, ik open de aangepaste modus. Dweilen gestart.
 491;Oké, ik open de aangepaste modus. Stofzuigen gestart.
 492;Oké, ik begin met het schoonmaken van de woonkamer, zorg ervoor dat de deur openstaat.
@@ -546,7 +546,7 @@ s488;Signaaltoon.
 624;De batterij is twee procent.
 625;De batterij is één procent.
 626;De batterij is nul procent.
-629;Sorry, ik kan u niet zien. Zeg "Hier ben ik" alstublieft, dan zoek ik verder.
+629;Sorry, ik kan u niet zien. Zeg 'Hier ben ik' alstublieft, dan zoek ik verder.
 630;Welkom bij de Mova robotstofzuiger! Open de klep, scan de QR-code en download de app voor verdere stappen.
 631;Welkom bij de Trover robotstofzuiger! Open de klep, scan de QR-code en download de app voor verdere stappen.
 632;De taal van de spraakassistent wordt nu gewijzigd. Dit duurt ongeveer dertig seconden.
@@ -555,29 +555,29 @@ s488;Signaaltoon.
 636;De dweilpad is een beetje vuil geworden. Breng de robot terug naar het basisstation om deze automatisch te reinigen.
 638;Extra lediging gestart.
 639;Installeer het filter van de wastrap alstublieft.
-641;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: "Oké Mova, start met schoonmaken".
-642;Probeer eens tegen de robot te zeggen: "Oké Mova, verhoog de zuigkracht".
-643;Probeer eens tegen de robot te zeggen: "Oké Mova, verhoog de vochtigheid van de dweil".
-644;Probeer eens tegen de robot te zeggen: "Oké Mova, pofzuigen en dweilen" om van modus te veranderen.
-645;Probeer eens tegen de robot te zeggen: "Oké Mova, start met dweilen" om van modus te veranderen.
-646;Probeer eens tegen de robot te zeggen: "Oké Mova, kom hier schoonmaken" om een lokale reiniging te starten.
-647;Probeer eens tegen de robot te zeggen: "Oké Mova, eerst stofzuigen dan dweilen" om van modus te veranderen.
-648;Probeer eens tegen de robot te zeggen: "Oké Mova, start met schoonmaken" om een volledige reiniging te starten.
+641;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken'.
+642;Probeer eens tegen de robot te zeggen: 'Oké Mova, verhoog de zuigkracht'.
+643;Probeer eens tegen de robot te zeggen: 'Oké Mova, verhoog de vochtigheid van de dweil'.
+644;Probeer eens tegen de robot te zeggen: 'Oké Mova, pofzuigen en dweilen' om van modus te veranderen.
+645;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met dweilen' om van modus te veranderen.
+646;Probeer eens tegen de robot te zeggen: 'Oké Mova, kom hier schoonmaken' om een lokale reiniging te starten.
+647;Probeer eens tegen de robot te zeggen: 'Oké Mova, eerst stofzuigen dan dweilen' om van modus te veranderen.
+648;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken' om een volledige reiniging te starten.
 658;De antikalkmodule is verlopen. Vervang deze op tijd alstublieft.
-659;Sorry, ik begreep het niet. U kunt "Oké Mova, wat kun jij?" tegen mij zeggen om al mijn functies te ontdekken.
-660;Sorry, ik begreep het niet. U kunt "Oké Truver, wat kun jij?" tegen mij zeggen om al mijn functies te ontdekken.
+659;Sorry, ik begreep het niet. U kunt 'Oké Mova, wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
+660;Sorry, ik begreep het niet. U kunt 'Oké Truver, wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
 661;Reiniging van de onderkant van het basisstation. Dit proces duurt ongeveer 45 tot 60 seconden.
 662;Elektrolytwater maken and starten met het reinigen van de dweilpad.
 663;Ik heb herhaaldelijk gemerkt dat het waterniveau in de wastrap afwijkend is. Reinig het filter en de onderste opvangbak en start die taak opnieuw.
-664;Probeer eens tegen de robot te zeggen: "Oké Truver, start met schoonmaken".
-665;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: "Oké Truver, start met schoonmaken".
-666;Probeer eens tegen de robot te zeggen: "Oké Truver, verhoog de zuigkracht".
-667;Probeer eens tegen de robot te zeggen: "Oké Truver, verhoog de vochtigheid van de dweil".
-668;Probeer eens tegen de robot te zeggen: "Oké Truver, eerst stofzuigen dan dweilen" om van modus te veranderen.
-669;Probeer eens tegen de robot te zeggen: "Oké Truver, pofzuigen en dweilen" om van modus te veranderen.
-670;Probeer eens tegen de robot te zeggen: "Oké Truver, kom hier schoonmaken" om een lokale reiniging te starten.
-671;Probeer eens tegen de robot te zeggen: "Oké Truver, eerst stofzuigen dan dweilen" om van modus te veranderen.
-672;Probeer eens tegen de robot te zeggen: "Oké Truver, start met schoonmaken" om een volledige reiniging te starten.
+664;Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken'.
+665;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken'.
+666;Probeer eens tegen de robot te zeggen: 'Oké Truver, verhoog de zuigkracht'.
+667;Probeer eens tegen de robot te zeggen: 'Oké Truver, verhoog de vochtigheid van de dweil'.
+668;Probeer eens tegen de robot te zeggen: 'Oké Truver, eerst stofzuigen dan dweilen' om van modus te veranderen.
+669;Probeer eens tegen de robot te zeggen: 'Oké Truver, pofzuigen en dweilen' om van modus te veranderen.
+670;Probeer eens tegen de robot te zeggen: 'Oké Truver, kom hier schoonmaken' om een lokale reiniging te starten.
+671;Probeer eens tegen de robot te zeggen: 'Oké Truver, eerst stofzuigen dan dweilen' om van modus te veranderen.
+672;Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken' om een volledige reiniging te starten.
 673;De mechanische arm zit waarschijnlijk vast of er zit iets in verstrikt. Maak deze schoon en start het apparaat opnieuw op.
 677;Kan het opgegeven gebied niet bereiken. Probeer verboden zones of onbegaanbare drempels op de route te verwijderen.
 678;De route is geblokkeerd. Probeer verboden zones of onbegaanbare drempels te verwijderen, of verplaats de robot uit dit gebied.
@@ -592,4 +592,4 @@ s687;Kattenspinnen.
 s688;Camerageluid.
 689;Ik begin met het drogen van de stofbak en de stofzak.
 690;Het drogen van de stofbak en de stofzak is gepauzeerd.
-694;Probeer eens tegen de robot te zeggen: "Oké Mova, start met schoonmaken".
+694;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken'.
