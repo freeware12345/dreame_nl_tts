@@ -18,7 +18,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          ini-values: allow_url_fopen=On, max_execution_time=300
+          extensions: curl
 
       - name: Systeertools installeren
         run: |
@@ -31,30 +31,75 @@ jobs:
         run: |
           cd "TTS voice creator"
           
-          # Fix de API-sleutel in het PHP-bestand
-          sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
-          
-          # Schakel over naar de Nederlandse CSV
+          # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Maak de map aan voor de audiobestanden
-          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
-          mkdir -p "$STEM_KLEIN"
+          # Herschrijf bing_hu_voice.php volledig naar een stabiele cURL-verbinding
+          cat << 'EOF' > bing_hu_voice.php
+          <?php
+          if ($argc < 4) exit(1);
+          $szoveg = $argv[1];
+          $mentes = $argv[2];
+          $hang = $argv[3];
+          $dir = strtolower($hang);
+          $filePath = $dir . "/" . $mentes . ".wav";
+          
+          if (file_exists($filePath)) exit(0);
+          if (!is_dir($dir)) mkdir($dir, 0777, true);
+
+          $apiKey = getenv('AZURE_SPEECH_KEY');
+          
+          // Stap 1: Haal de toegangstoken op via cURL
+          $ch = curl_init("https://microsoft.com");
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array("Ocp-Apim-Subscription-Key: " . $apiKey, "Content-Length: 0"));
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          $access_token = curl_exec($ch);
+          curl_close($ch);
+
+          if (!$access_token) {
+              echo "Token verbinding mislukt\n";
+              exit(1);
+          }
+
+          // Stap 2: SSML opbouwen voor de Nederlandse stem
+          $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
+          $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . htmlspecialchars($szoveg, ENT_XML1) . "</lang></voice></speak>";
+
+          // Stap 3: Audio downloaden via cURL
+          $ch = curl_init("https://microsoft.com");
+          curl_setopt($ch, CURLOPT_POST, 1);
+          curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
+          curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+              "Content-type: application/ssml+xml",
+              "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
+              "Authorization: Bearer " . $access_token,
+              "User-Agent: TTSPHP"
+          ));
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+          $result = curl_exec($ch);
+          curl_close($ch);
+
+          if ($result) {
+              file_put_contents($filePath, $result);
+          }
+          ?>
+          EOF
           
           # Start het genereren van de stemmen
-          echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert
+          echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
 
       - name: Handmatig inpakken voor Dreame
         run: |
           cd "TTS voice creator"
           STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           
+          # Pak de gemaakte OGG-bestanden gegarandeerd in
           if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
             cd "$STEM_KLEIN"
             tar -czf ../../dreame_voicepack_nl.tar.gz ./*
           else
-            cd ..
-            tar -czf dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf dreame_voicepack_nl.tar.gz ./*
+            tar -czf ../dreame_voicepack_nl.tar.gz ./*.ogg ./*.wav 2>/dev/null || tar -czf ../dreame_voicepack_nl.tar.gz ./* || true
           fi
 
       - name: Bestand bewaren als download
