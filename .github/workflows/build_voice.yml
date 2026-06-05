@@ -29,11 +29,16 @@ jobs:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
           cd "TTS voice creator"
-          # Injecteer de geheime API-sleutel op de juiste plek
+          
+          # Fix de API-sleutel in het PHP-bestand
           sed -i 's/"API_KULCS"/"'"$AZURE_SPEECH_KEY"'"/g' bing_hu_voice.php
-          # Fix de verouderde Microsoft Azure links naar het universele Speech-eindpunt
-          sed -i 's|https://microsoft.com|https://microsoft.com|g' bing_hu_voice.php
-          sed -i 's|https://microsoft.com|https://microsoft.com|g' bing_hu_voice.php
+          
+          # Forceer het Python-script om naar jouw Nederlandse CSV te kijken in plaats van de Hongaarse
+          sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
+          
+          # Maak alvast de juiste map aan voor de stem in kleine letters (voorkomt PHP mappen-fout)
+          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
+          mkdir -p "$STEM_KLEIN"
           
           # Start het genereren van de stemmen
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert
@@ -41,11 +46,11 @@ jobs:
       - name: Handmatig inpakken voor Dreame
         run: |
           cd "TTS voice creator"
-          STEM_MAP=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
+          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           
-          # Forceer het inpakken van de gemaakte OGG-bestanden naar een echt archief
-          if [ -d "$STEM_MAP" ]; then
-            cd "$STEM_MAP"
+          # Controleer waar de bestanden staan en pak ze in
+          if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
+            cd "$STEM_KLEIN"
             tar -czf ../../dreame_voicepack_nl.tar.gz ./*
           else
             cd ..
