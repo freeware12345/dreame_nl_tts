@@ -34,17 +34,16 @@ jobs:
           # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Herschrijf bing_hu_voice.php naar de originele, stabiele basis met de juiste Azure API URL
+          # Herschrijf bing_hu_voice.php naar de stabiele basis met correct Azure TTS-eindpunt
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          // De originele, correcte manier van argumenten inlezen
           $szoveg = $argv[1];
           $mentes = $argv[2];
           $hang = $argv[3];
           
-          $dir = strtolower($hang);
+          $dir = $hang; 
           $filePath = $dir . "/" . $mentes . ".wav";
           
           if (file_exists($filePath)) {
@@ -56,7 +55,6 @@ jobs:
           
           $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
           
-          // Zorg voor een schone XML/SSML structuur zonder corrupte tekens
           $cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
           $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . $cleanText . "</lang></voice></speak>";
           
@@ -85,22 +83,47 @@ jobs:
           ?>
           EOF
           
-          # Start het genereren van de stemmen
+          # Start het genereren van de stemmen (dit haalt de WAV's binnen via de cache)
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
-          
-      - name: Handmatig inpakken voor Dreame
+
+      - name: Handmatige OGG-conversie en opschoning voor Dreame
         run: |
           cd "TTS voice creator"
-          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
+          TARGET_DIR="${{ github.event.inputs.voice }}"
           
-          if [ -d "$STEM_KLEIN" ] && [ "$(ls -A $STEM_KLEIN)" ]; then
-            cd "$STEM_KLEIN"
-            tar -czf ../../dreame_voicepack_nl.tar.gz ./*
-          else
-            cd ..
-            tar -czf dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf dreame_voicepack_nl.tar.gz ./* || true
+          # Als de map niet bestaat (of met kleine letters), maak hem aan of pas hem aan
+          if [ ! -d "$TARGET_DIR" ]; then
+            TARGET_DIR=$(echo "$TARGET_DIR" | tr '[:upper:]' '[:lower:]')
           fi
           
+          echo "Verwerken van map: $TARGET_DIR"
+          cd "$TARGET_DIR"
+          
+          # Forceer conversie van ELK WAV-bestand naar een correct Dreame OGG-bestand (zonder de .ogg extensie!)
+          # Dreame robots verwachten de bestanden namelijk als '1', '2', 's0' ZONDER '.ogg' of '.wav' erachter.
+          for wavfile in *.wav; do
+            if [ -f "$wavfile" ]; then
+              filename="${wavfile%.wav}"
+              # Converteer naar ogg via ffmpeg met de juiste audio-indeling voor Dreame
+              ffmpeg -i "$wavfile" -c:a libvorbis -b:a 64k "${filename}.ogg" -y q>/dev/null
+              # Overschrijf het origineel zonder extensie (dit is wat Dreame vereist)
+              mv "${filename}.ogg" "$filename"
+              # Verwijder het oude zware WAV-bestand om ruimte te besparen
+              rm "$wavfile"
+            fi
+          done
+          
+          # Pak de map nu in met de exacte structuur die Valetudo / HomeAssistant verwacht
+          cd ..
+          tar -czf ../dreame_voicepack_nl.tar.gz "$TARGET_DIR"
+
+      - name: Genereer installatiegegevens (Grootte en MD5)
+        run: |
+          echo "=== INSTALLATIE INFO VOOR HOMEASSISTANT / VALETUDO ==="
+          echo "Bestandsgrootte (bytes): $(stat -c%s dreame_voicepack_nl.tar.gz)"
+          echo "MD5 Hash: $(md5sum dreame_voicepack_nl.tar.gz | awk '{print $1}')"
+          echo "======================================================="
+
       - name: Bestand bewaren als download
         uses: actions/upload-artifact@v4
         with:
