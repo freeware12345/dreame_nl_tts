@@ -28,8 +28,8 @@ s0;Opstartgeluid.
 26;Fabrieksinstellingen herstellen.
 27;Updaten. Dit duurt ongeveer vijf minutes. Schakel de robot niet uit en start geen schoonmaaktaak.
 28;Update succesvol afgerond.
-29;Update mislukt, probeer het opnieuw.
-30;Positioneren, een moment geduld alstublieft.
+29;Update mislukt probeer het opnieuw.
+30;Positioneren een moment geduld alstublieft.
 31;Positioneren mislukt. De kaart is ongeldig. De robot begint met een nieuwe schoonmaak.
 32;Ik heb veranderingen in de omgeving opgemerkt. Druk op de knop om een nieuwe schoonmaaktaak te starten.
 33;Fout in de visuele navigatiesensor. Maak deze schoon en start de robot opnieuw op.
@@ -100,7 +100,7 @@ s0;Opstartgeluid.
 98;De stofzak is vol. Leeg de stofzak alstublieft.
 99;De bovenklep van het laad- en leegstation is niet gesloten. Sluit de bovenklep voordat de robot verdergaat met zijn werk.
 100;Het luchtkanaal van het laad- en leegstation is verstopt. Controleer het luchtkanaal alstublieft.
-101;De bovenklep van het automatische leegstation is niet gesloten, of de stofzak is niet geplaatst. Sluit de bovenklep of installeer de stofzak.
+101;De bovenklep van het automatische leegstation is niet gesloten of de stofzak is niet geplaatst. Sluit de bovenklep of installeer de stofzak.
 102;De stofzak is vol of het luchtkanaal is verstopt. Vervang de zak door een nieuwe of maak het luchtkanaal op tijd schoon.
 103;De wastrap van het basisstation is geïnstalleerd. De robot vervolgt zijn werk.
 104;De wastrap van het basisstation is niet geïnstalleerd. Zorg ervoor dat de wastrap is geplaatst en dat de klemmen aan beide kanten stevig vastzitten.
@@ -121,7 +121,7 @@ s0;Opstartgeluid.
 119;Knoppen vergrendeld.
 120;Knoppen ontgrendeld.
 121;De robot en telefoon zijn verbonden. Ga terug naar de Fantic-app en wacht tot de netwerkverbinding is voltooid.
-122;Continu positioneren, een moment geduld alstublieft.
+122;Continu positioneren een moment geduld alstublieft.
 126;Ik begin nu met schoonmaken.
 127;Ik begin met de lokale reiniging.
 128;Ik begin met lokaal dweilen.
@@ -164,37 +164,37 @@ s0;Opstartgeluid.
 173;Vervang de zilverionen-module alstublieft.
 177;Ik verlaat het basisstation.
 179;Dweilpads gereinigd. Er is onvoldoende water in de schoonwatertank. Vul de schoonwatertank en leeg de vuilwatertank.
-181;Onvoldoende water, vul de schoonwatertank bij alstublieft.
+181;Onvoldoende water vul de schoonwatertank bij alstublieft.
 186;Controleer de schoonwatertank.
 187;Dit duurt ongeveer 5 tot 10 minuten.
 188;Automatisch dokken geactiveerd.
-190;Oké, ik start het schoonmaken.
-191;Oké, ik start het stofzuigen en dweilen.
-192;Oké, ik start het dweilen.
-193;Oké, ik start het stofzuigen.
+190;Oké ik start het schoonmaken.
+191;Oké ik start het stofzuigen en dweilen.
+192;Oké ik start het dweilen.
+193;Oké ik start het stofzuigen.
 194;Schoonmaken is bezig.
-195;Oké, ik begin met het schoonmaken van de kamer, zorg ervoor dat de deur openstaat.
-196;Oké, ik begin met het stofzuigen van de vloer, zorg ervoor dat de deur openstaat.
-197;Oké, ik begin met het dweilen van de vloer, zorg ervoor dat de deur openstaat.
-198;Oké, ik begin met het stofzuigen and dweilen van de vloer, zorg ervoor dat de deur openstaat.
-199;Kan deze kamer niet herkennen, open de app om de kamernaam te controleren.
+195;Oké ik begin met het schoonmaken van de kamer zorg ervoor dat de deur openstaat.
+196;Oké ik begin met het stofzuigen van de vloer zorg ervoor dat de deur openstaat.
+197;Oké ik begin met het dweilen van de vloer zorg ervoor dat de deur openstaat.
+198;Oké ik begin met het stofzuigen and dweilen van de vloer zorg ervoor dat de deur openstaat.
+199;Kan deze kamer niet herkennen open de app om de kamernaam te controleren.
 s200;Uitschakelgeluid.
-201;Oké, ik ga verder met mijn werk.
-202;Oké, de taak is voltooid, ik ga terug naar het basisstation.
-203;Oké, ik ga terug naar het basisstation.
-204;Oké, ik begin met het maken van de kaart, zorg ervoor dat alle deuren openstaan.
-205;Oké, ik verlaat het basisstation.
-206;Oké, ik probeer je te vinden.
-207;Sorry, ik kon je niet vinden. Ga in mijn gezichtsveld staan alstublieft.
-208;Ik heb je gevonden, ik ga nu schoonmaken.
-209;Oké, ik ga terug naar het basisstation om de dweilpads te reinigen.
-210;Oké, ik ga die dweilpads reinigen.
-211;Sorry, ik moet eerst terugkeren naar het basisstation.
-212;Oké, ik start het automatische legen.
-213;Sorry, ik moet eerst terugkeren naar het basisstation.
+201;Oké ik ga verder met mijn werk.
+202;Oké de taak is voltooid ik ga terug naar het basisstation.
+203;Oké ik ga terug naar het basisstation.
+204;Oké ik begin met het maken van de kaart zorg ervoor dat alle deuren openstaan.
+205;Oké ik verlaat het basisstation.
+206;Oké ik probeer je te vinden.
+207;Sorry ik kon je niet vinden. Ga in mijn gezichtsveld staan alstublieft.
+208;Ik heb je gevonden ik ga nu schoonmaken.
+209;Oké ik ga terug naar het basisstation om de dweilpads te reinigen.
+210;Oké ik ga die dweilpads reinigen.
+211;Sorry ik moet eerst terugkeren naar het basisstation.
+212;Oké ik start het automatische legen.
+213;Sorry ik moet eerst terugkeren naar het basisstation.
 214;Drogen is bezig.
-215;Oké, ik start het drogen.
-216;Sorry, installeer eerst de dweilpad.
+215;Oké ik start het drogen.
+216;Sorry installeer eerst de dweilpad.
 217;De maximale zuigkracht is al ingesteld.
 218;De minimale zuigkracht is al ingesteld.
 219;De maximale vochtigheid is al ingesteld.
@@ -216,19 +216,19 @@ s200;Uitschakelgeluid.
 235;Vandaag is het vrijdag.
 236;Vandaag is het zaterdag.
 237;Vandaag is het zondag.
-238;Oké, de taak is gepauzeerd.
+238;Oké de taak is gepauzeerd.
 244;Schoonmaakmiddelfles geïnstalleerd.
 245;Het maximale aantal kaarten is bereikt. Verwijder een kaart en probeer het opnieuw.
 246;Hier ben ik.
-247;Sorry, ik begrijp het niet.
-248;De dweilpad is niet geïnstalleerd, installeer deze en probeer het opnieuw.
+247;Sorry ik begrijp het niet.
+248;De dweilpad is niet geïnstalleerd installeer deze en probeer het opnieuw.
 249;Ik ben momenteel aan het werk. Rond de huidige taak af en probeer het opnieuw.
-250;Ik sta momenteel in de dweilmodus, schakel eerst over naar stofzuigen of stofzuigen en dweilen.
-251;Ik sta momenteel in de stofzuigmodus, schakel eerst over naar dweilen of stofzuigen en dweilen.
-252;Ik ben klaar, de aangepaste schoonmaakmodus is afgesloten.
+250;Ik sta momenteel in de dweilmodus schakel eerst over naar stofzuigen of stofzuigen en dweilen.
+251;Ik sta momenteel in de stofzuigmodus schakel eerst over naar dweilen of stofzuigen en dweilen.
+252;Ik ben klaar de aangepaste schoonmaakmodus is afgesloten.
 253;Het volume is op maximaal ingesteld.
 254;Het volume is op minimaal ingesteld.
-255;Sorry, deze taak kan alleen worden uitgevoerd als de AI-functie is ingeschakeld.
+255;Sorry deze taak kan alleen worden uitgevoerd als de AI-functie is ingeschakeld.
 257;Camerabewaking geannuleerd.
 258;Zelfpositionering. Surveilleren gestart.
 259;Zelfpositionering. Ik ga naar de aangewezen plek.
@@ -241,28 +241,28 @@ s200;Uitschakelgeluid.
 267;Maak de sensoren schoon alstublieft.
 269;Probeer het opnieuw zodra de huidige taak is voltooid.
 s274;Belgeluid.
-275;Sorry, dit commando wordt niet ondersteund. Open de app voor meer spraakcommando's.
-276;Sorry, de robot voert deze taak niet uit.
-277;Oké, ik kom eraan om schoon te maken.
-278;Oké, de droogtaak is voltooid.
+275;Sorry dit commando wordt niet ondersteund. Open de app voor meer spraakcommando's.
+276;Sorry de robot voert deze taak niet uit.
+277;Oké ik kom eraan om schoon te maken.
+278;Oké de droogtaak is voltooid.
 279;De robot is aan het stofzuigen. Rond de taak af en probeer het opnieuw.
 280;Aangepaste schoonmaak gestart.
 281;De robot leegt zichzelf automatisch. Probeer het later opnieuw.
 282;De robot reinigt de dweilpad. Probeer het later opnieuw.
 283;De robot staat niet op het basisstation. Probeer het later opnieuw.
-284;Oké, de schoonmaak begint zodra alle huidige tasks zijn voltooid.
+284;Oké de schoonmaak begint zodra alle huidige tasks zijn voltooid.
 285;Blijf daar alstublieft staan zodat ik je kan vinden.
-286;Sorry, maak eerst een kaart aan en probeer het opnieuw.
-287;Oké, ik ben overgeschakeld naar de stille zuigmodus.
-288;Oké, ik ben overgeschakeld naar de normale zuigmodus.
-289;Oké, ik ben overgeschakeld naar de sterke zuigmodus.
-290;Oké, ik ben overgeschakeld naar de turbo zuigmodus.
-291;Oké, ik ben overgeschakeld naar de licht droge dweilmodus.
-292;Oké, ik ben overgeschakeld naar de vochtige dweilmodus.
+286;Sorry maak eerst een kaart aan en probeer het opnieuw.
+287;Oké ik ben overgeschakeld naar de stille zuigmodus.
+288;Oké ik ben overgeschakeld naar de normale zuigmodus.
+289;Oké ik ben overgeschakeld naar de sterke zuigmodus.
+290;Oké ik ben overgeschakeld naar de turbo zuigmodus.
+291;Oké ik ben overgeschakeld naar de licht droge dweilmodus.
+292;Oké ik ben overgeschakeld naar de vochtige dweilmodus.
 293;Oproep toegestaan.
 294;Oproep geweigerd.
 296;Fout bij de vuilwatertank. Mijn vuilwatertank is vol of niet goed geplaatst.
-297;Als de fles met schoonmaakmiddel is geplaatst en het middel is nog nooit gebruikt, reset dit dan in de app.
+297;Als de fles met schoonmaakmiddel is geplaatst en het middel is nog nooit gebruikt reset dit dan in de app.
 298;De zelfreiniging van het basisstation begint. Maak de binnenkant schoon met de reinigingsborstel of een doek. Na drie minuten stroomt het vuile water uit de wastrap weg.
 299;Schoonmaakmiddelfles en de automatische doseermodule zijn geïnstalleerd.
 300;De robot ondersteunt dit accessoire niet.
@@ -270,27 +270,27 @@ s274;Belgeluid.
 302;Ik ben aan het werk.
 303;Ik ben in de war.
 304;Netwerk verbonden.
-305;Oké, de zelfreiniging van het basisstation begint. Maak de binnenkant schoon met de reinigingsborstel of een doek. Na drie minuten stroomt het vuile water uit de wastrap weg.
-306;Sorry, ik begrijp het niet. Configureer het netwerk en probeer het opnieuw.
+305;Oké de zelfreiniging van het basisstation begint. Maak de binnenkant schoon met de reinigingsborstel of een doek. Na drie minuten stroomt het vuile water uit de wastrap weg.
+306;Sorry ik begrijp het niet. Configureer het netwerk en probeer het opnieuw.
 307;Ik ben aan het opladen.
-308;Sorry, ik begreep het niet. Spreek mij opnieuw aan en probeer het nog eens.
+308;Sorry ik begreep het niet. Spreek mij opnieuw aan en probeer het nog eens.
 309;Ik habe het gevonden. Ik vertrek nu.
-310;Oké, ik ga nu weg.
+310;Oké ik ga nu weg.
 311;De dweilpads zijn verwijderd.
 312;Gebruiksinformatie van dit accessoire is niet beschikbaar. Vervang het wanneer dat nodig is.
-313;Sorry, het netwerksignaal is zwak. Verplaats mij naar een gebied met een beter bereik.
-314;Dit wordt niet ondersteund, maar je kunt me wel vragen om om te draaien.
+313;Sorry het netwerksignaal is zwak. Verplaats mij naar een gebied met een beter bereik.
+314;Dit wordt niet ondersteund maar je kunt me wel vragen om om te draaien.
 315;De dweilpad is niet in het basisstation aanwezig. Probeer het opnieuw na het terugplaatsen of monteer deze handmatig.
 316;Er bevindt zich al een dweilpad in het basisstation.
-317;Niet ondersteund, de robot voert aangepaste schoonmaaktaken uit. Ga naar de app om dit aan te passen.
+317;Niet ondersteund de robot voert aangepaste schoonmaaktaken uit. Ga naar de app om dit aan te passen.
 318;De dweilpads zijn gereinigd.
-319;Het handmatig verwijderen van de dweilpads is mislukt, verwijder ze handmatig.
-320;Het automatisch monteren van de dweilpads is mislukt, monteer ze handmatig.
+319;Het handmatig verwijderen van de dweilpads is mislukt verwijder ze handmatig.
+320;Het automatisch monteren van de dweilpads is mislukt monteer ze handmatig.
 321;Ik begin met intensief dweilen voor vlekken.
-322;Sorry, ik begreep niet wat u zei. U kunt 'Oké Dreame, wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
-323;Sorry, ik begrijp het niet helemaal. Open de app om alle spraakcommando's te bekijken die ik ondersteun.
+322;Sorry ik begreep niet wat u zei. U kunt 'Oké Dreame wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
+323;Sorry ik begrijp het niet helemaal. Open de app om alle spraakcommando's te bekijken die ik ondersteun.
 324;Ik ben momenteel de dweilpads aan het wassen. Activeer mij alstublieft zodra het wassen klaar is.
-328;Sorry, dit commando kan alleen tijdens het schoonmaken worden gegeven.
+328;Sorry dit commando kan alleen tijdens het schoonmaken worden gegeven.
 329;Zelftest gestart. Verplaats mij alstublieft niet van het basisstation.
 330;Probeer het opnieuw zodra de zelftest is voltooid.
 331;Ik heb geen fouten gevonden. U kunt het apparaat gerust gebruiken.
@@ -302,24 +302,24 @@ s337;Telefoongeluid.
 341;Ik heb je gevonden en begin je nu te volgen. Zeg 'stop' om het volgen te beëindigen.
 342;Waar ben je? Ga op ongeveer anderhalve meter afstand van mij staan alstublieft.
 343;Ik ben je kwijtgeraakt. Je loopt te snel. Ga op ongeveer anderhalve meter afstand staan en wacht tot ik je weer vind.
-344;Oké, na het stofzuigen begin ik met dweilen.
-346;Het apparaat is vergrendeld, neem contact op met de klantenservice.
+344;Oké na het stofzuigen begin ik met dweilen.
+346;Het apparaat is vergrendeld neem contact op met de klantenservice.
 349;Zorg ervoor dat het basisstation is ingeschakeld en plaats de robot op het station om de activering te starten.
 350;Activering van het basisstation gestart.
 351;Basisstation geactiveerd.
 352;Activering van het basisstation mislukt. Open de app voor de oplossing.
-355;Laag waterniveau, vul de schoonwatertank bij alstublieft.
-356;De fout blijft bestaan, de geplande taak is geannuleerd.
+355;Laag waterniveau vul de schoonwatertank bij alstublieft.
+356;De fout blijft bestaan de geplande taak is geannuleerd.
 360;De interne watertank van de robot wordt nu geleegd.
 361;Het legen van de interne watertank is voltooid.
-362;De dweilpad is verschoven, de robot gaat nu alleen stofzuigen.
-363;Het stofzuigen is voltooid, ik begin nu met dweilen.
+362;De dweilpad is verschoven de robot gaat nu alleen stofzuigen.
+363;Het stofzuigen is voltooid ik begin nu met dweilen.
 364;Instellen van de videocode gestart.
 365;De realtime videofunctie is uitgeschakeld.
 366;Ik heb een vlek ontdekt. Ik begin met het reinigen van de vlek.
-367;Oké, ik start de gevraagde vlekkenreiniging.
+367;Oké ik start de gevraagde vlekkenreiniging.
 368;Ik heb een vlek ontdekt. Na het reinigen van de dweilpads kom ik terug om het schoon te maken.
-369;Oké, ik begin met de lokale vlekkenreiniging.
+369;Oké ik begin met de lokale vlekkenreiniging.
 371;Haal de wastrap eruit alstublieft.
 372;Schoon water wegpompen gestart.
 373;Het wegpompen van water is voltooid. Wacht rustig 10 seconden tot het vuil is losgeweekt en schrob het daarna schoon.
@@ -327,8 +327,8 @@ s337;Telefoongeluid.
 375;Schuif het vuil naar de afzuigopening in het midden van de bodem. Het wegpompen van het water duurt 30 seconden.
 376;Het wegpompen van het vuile water is voltooid. Was de wastrap apart af en plaats deze daarna terug in het basisstation.
 377;Dit apparaat kan het netwerk niet configureren. Neem contact op met de klantenservice.
-378;Het wifi-wachtwoord is onjuist, de verbinding is mislukt. Configureer het netwerk opnieuw.
-379;Geen wifi-netwerk gevonden. Maak verbinding met een 2.4 GHz netwerk, plaats de robot dichter bij de router en probeer het opnieuw.
+378;Het wifi-wachtwoord is onjuist de verbinding is mislukt. Configureer het netwerk opnieuw.
+379;Geen wifi-netwerk gevonden. Maak verbinding met een 2.4 GHz netwerk plaats de robot dichter bij de router en probeer het opnieuw.
 380;Kan geen IP-adres ophalen. Controleer die instellingen van uw router.
 381;Kan geen verbinding maken met de EMQ-server. Controleer uw internetprovider.
 382;Netwerkverbinding mislukt. Controleer uw internetprovider.
@@ -351,7 +351,7 @@ s337;Telefoongeluid.
 401;Breng mij terug naar het basisstation en start de zelfreiniging.
 402;Hier ben ik.
 403;Ik luister.
-404;Hallo, wat kan ik voor je doen?
+404;Hallo wat kan ik voor je doen?
 405;Wat is er aan de hand?
 406;Waarmee kan ik helpen?
 407;Wat kan ik voor je doen?
@@ -360,14 +360,14 @@ s337;Telefoongeluid.
 424;Verplaats de robot naar een open ruimte en start de taak opnieuw alstublieft.
 426;De robot is uitgegleden en zit vast. Probeer het later opnieuw.
 433;Directe extra schoonmaak gestart.
-434;De extra schoonmaak is voltooid, ik ga verder met de normale schoonmaak.
+434;De extra schoonmaak is voltooid ik ga verder met de normale schoonmaak.
 435;Ik verlaat het huidige gebied onmiddellijk.
 s436;Signaaltoon.
 437;Het probleem is opgelost. Druk op de knop om het werk te hervatten.
 438;De bumper zit vast. Tik voorzichtig tegen de bumper aan de voorkant van de robot om te zien of hij terugveert.
 439;De kap van de lasersensor zit vast. Tik voorzichtig tegen het bewegende deel van de kap om te zien of het terugveert.
-441;De hoofdborstel zit vast. Haal deze eruit, maak hem schoon en plaats hem terug.
-442;De zijborstel zit vast. Haal deze eraf, maak hem schoon en plaats hem terug.
+441;De hoofdborstel zit vast. Haal deze eruit maak hem schoon en plaats hem terug.
+442;De zijborstel zit vast. Haal deze eraf maak hem schoon en plaats hem terug.
 443;Het aandrijfwiel zit vast. Verwijder het vastzittende vuil alstublieft.
 444;Plaats de robot in een open ruimte en start de taak opnieuw alstublieft.
 445;De dweilpad is eraf gevallen. Zoek deze in de buurt en herplaats hem.
@@ -377,7 +377,7 @@ s436;Signaaltoon.
 449;De robot kan geen taak starten op tapijt. Plaats hem op een harde vloer en probeer het opnieuw.
 450;De robot kan geen taak starten in een verboden zone. Verplaats de robot naar een toegestaan gebied en start de taak opnieuw.
 451;De robot kan geen taak starten in een verborgen zone. Verplaats de robot naar een niet-verborgen gebied en start de taak opnieuw.
-452;Fout in de ultrasoonsensor. Draai de robot om, veeg de witte ronde opening aan de onderkant schoon en start het apparaat opnieuw op.
+452;Fout in de ultrasoonsensor. Draai de robot om veeg de witte ronde opening aan de onderkant schoon en start het apparaat opnieuw op.
 453;Randsensorfout. Veeg de zwarte sensor aan de rechterkant van de robot schoon en start de taak opnieuw.
 454;Het water in de schoonwatertank is bijna op. Vul deze op tijd bij voor een ongestoorde schoonmaak.
 455;De schoonwatertank staat niet op zijn plek. Help mij even om de schoonwatertank te installeren.
@@ -386,65 +386,65 @@ s436;Signaaltoon.
 458;De stofzak staat niet op zijn plek. Zorg ervoor dat deze correct is geïnstalleerd.
 459;De dweilpad zit niet op zijn plek. Zorg ervoor dat de dweilpad weer op de robot is gemonteerd.
 460;De geurmodule van de vuilwatertank is verlopen. Vervang deze op tijd.
-463;Welkom bij de Dreame robotstofzuiger! Open de klep, scan de QR-code en download de Dreame-app voor verdere stappen.
-464;Plaats de robot voor de start op het basisstation om de taak succesvol uit te voeren. Als u 'Opladen gestart' hoort, staat hij goed.
-465;Plaats de robot voor de start op het basisstation. Als u 'Opladen gestart' hoort, staat hij goed.
+463;Welkom bij de Dreame robotstofzuiger! Open de klep scan de QR-code en download de Dreame-app voor verdere stappen.
+464;Plaats de robot voor de start op het basisstation om de taak succesvol uit te voeren. Als u 'Opladen gestart' hoort staat hij goed.
+465;Plaats de robot voor de start op het basisstation. Als u 'Opladen gestart' hoort staat hij goed.
 466;Open de deuren van de kamers die schoongemaakt moeten worden en haal obstakels van de vloer.
 467;Breng de robot terug naar het basisstation en start het maken van de kaart opnieuw.
 468;Controleer in de app of de kaartgegevens nauwkeurig zijn.
-469;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken'.
-470;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken'.
-471;Probeer eens tegen de robot te zeggen: 'Oké Dreame, verhoog de zuigkracht'.
-472;Probeer eens tegen de robot te zeggen: 'Oké Dreame, verhoog de vochtigheid van de dweil'.
-473;Probeer eens tegen de robot te zeggen: 'Oké Dreame, stofzuigen en dweilen' om van modus te veranderen.
-474;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met dweilen' om van modus te veranderen.
-475;Probeer eens tegen de robot te zeggen: 'Oké Dreame, kom hier schoonmaken' om een lokale reiniging te starten.
-476;Probeer eens tegen de robot te zeggen: 'Oké Dreame, eerst stofzuigen dan dweilen' om van modus te veranderen.
-477;Probeer eens tegen de robot te zeggen: 'Oké Dreame, start met schoonmaken' om een volledige reiniging te starten.
+469;Probeer eens tegen de robot te zeggen: 'Oké Dreame start met schoonmaken'.
+470;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Dreame start met schoonmaken'.
+471;Probeer eens tegen de robot te zeggen: 'Oké Dreame verhoog de zuigkracht'.
+472;Probeer eens tegen de robot te zeggen: 'Oké Dreame verhoog de vochtigheid van de dweil'.
+473;Probeer eens tegen de robot te zeggen: 'Oké Dreame stofzuigen en dweilen' om van modus te veranderen.
+474;Probeer eens tegen de robot te zeggen: 'Oké Dreame start met dweilen' om van modus te veranderen.
+475;Probeer eens tegen de robot te zeggen: 'Oké Dreame kom hier schoonmaken' om een lokale reiniging te starten.
+476;Probeer eens tegen de robot te zeggen: 'Oké Dreame eerst stofzuigen dan dweilen' om van modus te veranderen.
+477;Probeer eens tegen de robot te zeggen: 'Oké Dreame start met schoonmaken' om een volledige reiniging te starten.
 478;De robot keert terug naar het basisstation om de dweilpads te wassen en vervolgt daarna zijn taak.
 479;Ik ben er klaar voor. Start die taak alstublieft opnieuw.
 480;Controleer of er voldoende water in de schoonwatertank zit om de volgende taken succesvol uit te voeren.
 481;Automatisch legen gestart.
-482;De stofzuiger wordt geleegd, daarna wordt de robot geleegd.
-483;Automatisch legen is bezig, daarna worden de dweilpads gereinigd.
-484;Automatisch legen is bezig, daarna begint de schoonmaaktaak.
-485;De robot wordt geleegd, daarna wordt de stofzuiger geleegd.
-486;De dweilpads worden gereinigd, daarna volgt het automatische legen.
+482;De stofzuiger wordt geleegd daarna wordt de robot geleegd.
+483;Automatisch legen is bezig daarna worden de dweilpads gereinigd.
+484;Automatisch legen is bezig daarna begint de schoonmaaktaak.
+485;De robot wordt geleegd daarna wordt de stofzuiger geleegd.
+486;De dweilpads worden gereinigd daarna volgt het automatische legen.
 487;Zorg ervoor dat de robot op het basisstation staat.
 s488;Signaaltoon.
 489;Ik sta momenteel in de intelligente modus. Zeg 'Beëindig de taak' en probeer het daarna opnieuw.
-490;Oké, ik open de aangepaste modus. Dweilen gestart.
-491;Oké, ik open de aangepaste modus. Stofzuigen gestart.
-492;Oké, ik begin met het schoonmaken van de woonkamer, zorg ervoor dat de deur openstaat.
-493;Oké, ik begin met het schoonmaken van de slaapkamer, zorg ervoor dat de deur openstaat.
-494;Oké, ik begin met het schoonmaken van de hoofdslaapkamer, zorg ervoor dat de deur openstaat.
-495;Oké, ik begin met het schoonmaken van de logeerkamer, zorg ervoor dat de deur openstaat.
-496;Oké, ik begin met het schoonmaken van de werkkamer, zorg ervoor dat de deur openstaat.
-497;Oké, ik begin met het schoonmaken van de keuken, zorg ervoor dat de deur openstaat.
-498;Oké, ik begin met het schoonmaken van de eetkamer, zorg ervoor dat de deur openstaat.
-499;Oké, ik begin met het schoonmaken van de badkamer, zorg ervoor dat de deur openstaat.
-500;Oké, ik begin met het schoonmaken van het balkon, zorg ervoor dat de deur openstaat.
-501;Oké, ik begin met het schoonmaken van de gang, zorg ervoor dat de deur openstaat.
-502;Oké, ik begin met het schoonmaken van de bijkeuken, zorg ervoor dat de deur openstaat.
-503;Oké, ik begin met het schoonmaken van de kledingkast, zorg ervoor dat de deur openstaat.
-504;Oké, ik begin met het schoonmaken van de ontvangstkamer, zorg ervoor dat de deur openstaat.
-505;Oké, ik begin met het schoonmaken van het kantoor, zorg ervoor dat de deur openstaat.
-506;Oké, ik begin met het schoonmaken van de fitnessruimte, zorg ervoor dat de deur openstaat.
-507;Oké, ik begin met het schoonmaken van de zithoek, zorg ervoor dat de deur openstaat.
-508;Oké, het volume is verhoogd.
-509;Oké, het volume is verlaagd.
-510;Oké, ik ben klaar met mijn werk.
-511;Sorry, de robot voert momenteel geen taak uit.
+490;Oké ik open de aangepaste modus. Dweilen gestart.
+491;Oké ik open de aangepaste modus. Stofzuigen gestart.
+492;Oké ik begin met het schoonmaken van de woonkamer zorg ervoor dat de deur openstaat.
+493;Oké ik begin met het schoonmaken van de slaapkamer zorg ervoor dat de deur openstaat.
+494;Oké ik begin met het schoonmaken van de hoofdslaapkamer zorg ervoor dat de deur openstaat.
+495;Oké ik begin met het schoonmaken van de logeerkamer zorg ervoor dat de deur openstaat.
+496;Oké ik begin met het schoonmaken van de werkkamer zorg ervoor dat de deur openstaat.
+497;Oké ik begin met het schoonmaken van de keuken zorg ervoor dat de deur openstaat.
+498;Oké ik begin met het schoonmaken van de eetkamer zorg ervoor dat de deur openstaat.
+499;Oké ik begin met het schoonmaken van de badkamer zorg ervoor dat de deur openstaat.
+500;Oké ik begin met het schoonmaken van het balkon zorg ervoor dat de deur openstaat.
+501;Oké ik begin met het schoonmaken van de gang zorg ervoor dat de deur openstaat.
+502;Oké ik begin met het schoonmaken van de bijkeuken zorg ervoor dat de deur openstaat.
+503;Oké ik begin met het schoonmaken van de kledingkast zorg ervoor dat de deur openstaat.
+504;Oké ik begin met het schoonmaken van de ontvangstkamer zorg ervoor dat de deur openstaat.
+505;Oké ik begin met het schoonmaken van het kantoor zorg ervoor dat de deur openstaat.
+506;Oké ik begin met het schoonmaken van de fitnessruimte zorg ervoor dat de deur openstaat.
+507;Oké ik begin met het schoonmaken van de zithoek zorg ervoor dat de deur openstaat.
+508;Oké het volume is verhoogd.
+509;Oké het volume is verlaagd.
+510;Oké ik ben klaar met mijn werk.
+511;Sorry de robot voert momenteel geen taak uit.
 512;Er staan geen huisdiermeubels op de kaart. Voeg deze toe in de app alstublieft.
-513;Oké, ik ga de ruimte rondom de huisdiermeubels schoonmaken.
-515;Hallo! Til alstublieft uw voeten op, zodat ik onder u kan schoonmaken.
+513;Oké ik ga de ruimte rondom de huisdiermeubels schoonmaken.
+515;Hallo! Til alstublieft uw voeten op zodat ik onder u kan schoonmaken.
 516;Zoeken naar het huisdier gestart.
-517;Ik heb het huisdier gevonden, ik ga terug naar het basisstation om op te laden.
-518;Ik heb het huisdier niet gevonden, ik ga terug naar het basisstation om op te laden.
+517;Ik heb het huisdier gevonden ik ga terug naar het basisstation om op te laden.
+518;Ik heb het huisdier niet gevonden ik ga terug naar het basisstation om op te laden.
 522;Welk probleem wilt u melden?
 523;Omschrijf het probleem alstublieft iets gedetailleerder.
 524;Breng mij alstublieft naar de plek waar het probleem is opgetreden.
-525;Wacht een moment, de analyse is bezig.
+525;Wacht een moment de analyse is bezig.
 526;De batterij is honderd procent.
 527;De batterij is negenennegentig procent.
 528;De batterij is achtennegentig procent.
@@ -546,43 +546,43 @@ s488;Signaaltoon.
 624;De batterij is twee procent.
 625;De batterij is één procent.
 626;De batterij is nul procent.
-629;Sorry, ik kan u niet zien. Zeg 'Hier ben ik' alstublieft, dan zoek ik verder.
-630;Welkom bij de Mova robotstofzuiger! Open de klep, scan de QR-code en download de app voor verdere stappen.
-631;Welkom bij de Trover robotstofzuiger! Open de klep, scan de QR-code en download de app voor verdere stappen.
+629;Sorry ik kan u niet zien. Zeg 'Hier ben ik' alstublieft dan zoek ik verder.
+630;Welkom bij de Mova robotstofzuiger! Open de klep scan de QR-code en download de app voor verdere stappen.
+631;Welkom bij de Trover robotstofzuiger! Open de klep scan de QR-code en download de app voor verdere stappen.
 632;De taal van de spraakassistent wordt nu gewijzigd. Dit duurt ongeveer dertig seconden.
 633;Het wijzigen van de taal is mislukt. Ga naar de instellingen en probeer het opnieuw.
 634;Comprimeren van het haar in de stofbak gestart.
 636;De dweilpad is een beetje vuil geworden. Breng de robot terug naar het basisstation om deze automatisch te reinigen.
 638;Extra lediging gestart.
 639;Installeer het filter van de wastrap alstublieft.
-641;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken'.
-642;Probeer eens tegen de robot te zeggen: 'Oké Mova, verhoog de zuigkracht'.
-643;Probeer eens tegen de robot te zeggen: 'Oké Mova, verhoog de vochtigheid van de dweil'.
-644;Probeer eens tegen de robot te zeggen: 'Oké Mova, pofzuigen en dweilen' om van modus te veranderen.
-645;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met dweilen' om van modus te veranderen.
-646;Probeer eens tegen de robot te zeggen: 'Oké Mova, kom hier schoonmaken' om een lokale reiniging te starten.
-647;Probeer eens tegen de robot te zeggen: 'Oké Mova, eerst stofzuigen dan dweilen' om van modus te veranderen.
-648;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken' om een volledige reiniging te starten.
+641;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Mova start met schoonmaken'.
+642;Probeer eens tegen de robot te zeggen: 'Oké Mova verhoog de zuigkracht'.
+643;Probeer eens tegen de robot te zeggen: 'Oké Mova verhoog de vochtigheid van de dweil'.
+644;Probeer eens tegen de robot te zeggen: 'Oké Mova pofzuigen en dweilen' om van modus te veranderen.
+645;Probeer eens tegen de robot te zeggen: 'Oké Mova start met dweilen' om van modus te veranderen.
+646;Probeer eens tegen de robot te zeggen: 'Oké Mova kom hier schoonmaken' om een lokale reiniging te starten.
+647;Probeer eens tegen de robot te zeggen: 'Oké Mova eerst stofzuigen dan dweilen' om van modus te veranderen.
+648;Probeer eens tegen de robot te zeggen: 'Oké Mova start met schoonmaken' om een volledige reiniging te starten.
 658;De antikalkmodule is verlopen. Vervang deze op tijd alstublieft.
-659;Sorry, ik begreep het niet. U kunt 'Oké Mova, wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
-660;Sorry, ik begreep het niet. U kunt 'Oké Truver, wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
+659;Sorry ik begreep het niet. U kunt 'Oké Mova wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
+660;Sorry ik begreep het niet. U kunt 'Oké Truver wat kun jij?' tegen mij zeggen om al mijn functies te ontdekken.
 661;Reiniging van de onderkant van het basisstation. Dit proces duurt ongeveer 45 tot 60 seconden.
 662;Elektrolytwater maken and starten met het reinigen van de dweilpad.
 663;Ik heb herhaaldelijk gemerkt dat het waterniveau in de wastrap afwijkend is. Reinig het filter en de onderste opvangbak en start die taak opnieuw.
-664;Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken'.
-665;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken'.
-666;Probeer eens tegen de robot te zeggen: 'Oké Truver, verhoog de zuigkracht'.
-667;Probeer eens tegen de robot te zeggen: 'Oké Truver, verhoog de vochtigheid van de dweil'.
-668;Probeer eens tegen de robot te zeggen: 'Oké Truver, eerst stofzuigen dan dweilen' om van modus te veranderen.
-669;Probeer eens tegen de robot te zeggen: 'Oké Truver, pofzuigen en dweilen' om van modus te veranderen.
-670;Probeer eens tegen de robot te zeggen: 'Oké Truver, kom hier schoonmaken' om een lokale reiniging te starten.
-671;Probeer eens tegen de robot te zeggen: 'Oké Truver, eerst stofzuigen dan dweilen' om van modus te veranderen.
-672;Probeer eens tegen de robot te zeggen: 'Oké Truver, start met schoonmaken' om een volledige reiniging te starten.
+664;Probeer eens tegen de robot te zeggen: 'Oké Truver start met schoonmaken'.
+665;Ik ben er klaar voor. Probeer eens tegen de robot te zeggen: 'Oké Truver start met schoonmaken'.
+666;Probeer eens tegen de robot te zeggen: 'Oké Truver verhoog de zuigkracht'.
+667;Probeer eens tegen de robot te zeggen: 'Oké Truver verhoog de vochtigheid van de dweil'.
+668;Probeer eens tegen de robot te zeggen: 'Oké Truver eerst stofzuigen dan dweilen' om van modus te veranderen.
+669;Probeer eens tegen de robot te zeggen: 'Oké Truver pofzuigen en dweilen' om van modus te veranderen.
+670;Probeer eens tegen de robot te zeggen: 'Oké Truver kom hier schoonmaken' om een lokale reiniging te starten.
+671;Probeer eens tegen de robot te zeggen: 'Oké Truver eerst stofzuigen dan dweilen' om van modus te veranderen.
+672;Probeer eens tegen de robot te zeggen: 'Oké Truver start met schoonmaken' om een volledige reiniging te starten.
 673;De mechanische arm zit waarschijnlijk vast of er zit iets in verstrikt. Maak deze schoon en start het apparaat opnieuw op.
 677;Kan het opgegeven gebied niet bereiken. Probeer verboden zones of onbegaanbare drempels op de route te verwijderen.
-678;De route is geblokkeerd. Probeer verboden zones of onbegaanbare drempels te verwijderen, of verplaats de robot uit dit gebied.
+678;De route is geblokkeerd. Probeer verboden zones of onbegaanbare drempels te verwijderen of verplaats de robot uit dit gebied.
 679;De robot bevindt zich in een verboden zone of op een onbegaanbare drempel. Verplaats de robot uit dit gebied.
-681;Oké, baas, ik ga verder met schoonmaken.
+681;Oké baas ik ga verder met schoonmaken.
 682;De houder van de dweilpad is gestopt.
 683;De houder van de dweilpad is niet geïnstalleerd. Monteer de dweil en probeer het opnieuw.
 s684;Kattenmiauw.
@@ -592,4 +592,4 @@ s687;Kattenspinnen.
 s688;Camerageluid.
 689;Ik begin met het drogen van de stofbak en de stofzak.
 690;Het drogen van de stofbak en de stofzak is gepauzeerd.
-694;Probeer eens tegen de robot te zeggen: 'Oké Mova, start met schoonmaken'.
+694;Probeer eens tegen de robot te zeggen: 'Oké Mova start met schoonmaken'.
