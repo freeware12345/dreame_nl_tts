@@ -31,24 +31,23 @@ jobs:
         run: |
           cd "TTS voice creator"
           
-          # 1. Schakel over naar de Nederlandse CSV
+          # 1. Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # 2. Dwing het Python-script om aanhalingstekens rond de tekst te zetten tegen spatie-afbrekingen
+          # 2. FIX VOOR SPATIES: Dwing het Python-script om aanhalingstekens rond de tekst te zetten bij de PHP-aanroep
           sed -i 's/bing_hu_voice.php %s/bing_hu_voice.php "%s"/g' ttscreate.py
           
-          # 3. Herschrijf bing_hu_voice.php met veilige argument-uitlezing en snelheidsbegrenzer
+          # 3. Herschrijf bing_hu_voice.php met de exacte argument-indexen en Azure Rate-Limit vertraging
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          // Veilige methode om argumenten in te lezen zonder dat indexen kunnen wegvallen bij kopiëren
-          $args = $argv;
-          $szoveg = $args[1];
-          $mentes = $args[2];
-          $hang = $args[3];
+          // Exacte argumentenmapping volgens de handleiding van de repository
+          $szoveg = $argv[1];
+          $mentes = $argv[2];
+          $hang = $argv[3];
           
-          $dir = $hang; 
+          $dir = strtolower($hang); 
           $filePath = $dir . "/" . $mentes . ".wav";
           
           if (file_exists($filePath)) {
@@ -81,7 +80,7 @@ jobs:
           
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              // Wacht 3,5 seconden om de gratis Azure F0-limiet (max 20/min) te respecteren
+              // Wacht 3,5 seconden om de Azure F0 gratis limiet (max 20 aanvragen per minuut) te respecteren
               usleep(3500000); 
           } else {
               echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
@@ -90,32 +89,21 @@ jobs:
           ?>
           EOF
           
-          # Start het genereren van de stemmen
+          # Start het genereren en converteren van de stemmen volgens de originele methode
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
 
-      - name: Handmatige OGG-conversie en opschoning voor Dreame
+      - name: Handmatig inpakken van de gegenereerde bestanden
         run: |
           cd "TTS voice creator"
-          TARGET_DIR="${{ github.event.inputs.voice }}"
+          STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
           
-          if [ ! -d "$TARGET_DIR" ]; then
-            TARGET_DIR=$(echo "$TARGET_DIR" | tr '[:upper:]' '[:lower:]')
+          # Controleer of de door het script gemaakte map bestaat en pak deze in
+          if [ -d "$STEM_KLEIN" ]; then
+            tar -czf ../dreame_voicepack_nl.tar.gz "$STEM_KLEIN"
+          else
+            # Als fallback pakken we alle ogg/wav bestanden in
+            tar -czf ../dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf ../dreame_voicepack_nl.tar.gz ./* || true
           fi
-          
-          echo "Verwerken van map: $TARGET_DIR"
-          cd "$TARGET_DIR"
-          
-          for wavfile in *.wav; do
-            if [ -f "$wavfile" ]; then
-              filename="${wavfile%.wav}"
-              ffmpeg -i "$wavfile" -c:a libvorbis -b:a 64k "${filename}.ogg" -y q>/dev/null
-              mv "${filename}.ogg" "$filename"
-              rm "$wavfile"
-            fi
-          done
-          
-          cd ..
-          tar -czf ../dreame_voicepack_nl.tar.gz "$TARGET_DIR"
 
       - name: Genereer installatiegegevens (Grootte en MD5)
         run: |
