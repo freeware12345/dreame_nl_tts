@@ -34,17 +34,18 @@ jobs:
           # 1. Schakel over naar de Nederlandse CSV
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # 2. FIX VOOR SPATIES: Dwing het Python-script om aanhalingstekens rond de tekst te zetten
+          # 2. Dwing het Python-script om aanhalingstekens rond de tekst te zetten tegen spatie-afbrekingen
           sed -i 's/bing_hu_voice.php %s/bing_hu_voice.php "%s"/g' ttscreate.py
           
-          # 3. Herschrijf bing_hu_voice.php met snelheidsbegrenzer voor het gratis Azure account
+          # 3. Herschrijf bing_hu_voice.php met expliciete array-indexen en snelheidsbegrenzer
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          $szoveg = $argv;
-          $mentes = $argv;
-          $hang = $argv;
+          // Indexen expliciet gedefinieerd om PHP Fatal Errors te voorkomen
+          $szoveg = $argv[1];
+          $mentes = $argv[2];
+          $hang = $argv[3];
           
           $dir = $hang; 
           $filePath = $dir . "/" . $mentes . ".wav";
@@ -79,11 +80,10 @@ jobs:
           
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              // Wacht 3,5 seconde (3500000 microseconden) om de Azure F0 Rate Limit te omzeilen
+              // Wacht 3,5 seconden om de gratis Azure F0-limiet (max 20/min) niet te overschrijden
               usleep(3500000); 
           } else {
               echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
-              // Ook bij een fout wachten om herhaling van blokkades te voorkomen
               sleep(4);
           }
           ?>
