@@ -34,12 +34,12 @@ jobs:
           # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Herschrijf bing_hu_voice.php zodat hij de tekst veilig inleest EN de juiste Azure API aanroept
+          # Herschrijf bing_hu_voice.php met de juiste argv-indexen en het correcte Azure-eindpunt
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          // Pak de tekst exact zoals hij is ingevoerd
+          // Indexen hersteld [1], [2], [3]
           $szoveg = $argv[1];
           $mentes = $argv[2];
           $hang = $argv[3];
@@ -54,7 +54,7 @@ jobs:
           $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
           $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . htmlspecialchars($szoveg, ENT_XML1) . "</lang></voice></speak>";
           
-          // Gecorrigeerd: Verwijst nu direct naar de Azure Speech API in de regio 'northeurope'
+          // Correct Azure TTS Eindpunt voor regio 'northeurope'
           $ch = curl_init("https://microsoft.com");
           curl_setopt($ch, CURLOPT_POST, 1);
           curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
@@ -72,7 +72,6 @@ jobs:
           curl_close($ch);
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              // Kleine pauze tegen overbelasting
               usleep(200000); 
           } else {
               echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
