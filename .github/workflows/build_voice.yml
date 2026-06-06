@@ -34,12 +34,12 @@ jobs:
           # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Herschrijf bing_hu_voice.php met de exacte argument-indexen en UTF-8 encoding
+          # Herschrijf bing_hu_voice.php met de exacte, herstelde indexen
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          // Gecorrigeerd: De juiste index-nummers voor de argumenten uit het Python-script
+          // Indexen zorgvuldig hersteld met vierkante haken
           $szoveg = $argv[1];
           $mentes = $argv[2];
           $hang = $argv[3];
@@ -56,7 +56,6 @@ jobs:
           
           $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
           
-          // Zorg dat vreemde tekens (ë, é, -) veilig omgezet worden naar XML
           $cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
           $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . $cleanText . "</lang></voice></speak>";
           
