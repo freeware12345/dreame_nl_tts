@@ -37,15 +37,16 @@ jobs:
           # 2. Dwing het Python-script om aanhalingstekens rond de tekst te zetten tegen spatie-afbrekingen
           sed -i 's/bing_hu_voice.php %s/bing_hu_voice.php "%s"/g' ttscreate.py
           
-          # 3. Herschrijf bing_hu_voice.php met expliciete array-indexen en snelheidsbegrenzer
+          # 3. Herschrijf bing_hu_voice.php met veilige argument-uitlezing en snelheidsbegrenzer
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
-          // Indexen expliciet gedefinieerd om PHP Fatal Errors te voorkomen
-          $szoveg = $argv[1];
-          $mentes = $argv[2];
-          $hang = $argv[3];
+          // Veilige methode om argumenten in te lezen zonder dat indexen kunnen wegvallen bij kopiëren
+          $args = $argv;
+          $szoveg = $args[1];
+          $mentes = $args[2];
+          $hang = $args[3];
           
           $dir = $hang; 
           $filePath = $dir . "/" . $mentes . ".wav";
@@ -80,7 +81,7 @@ jobs:
           
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              // Wacht 3,5 seconden om de gratis Azure F0-limiet (max 20/min) niet te overschrijden
+              // Wacht 3,5 seconden om de gratis Azure F0-limiet (max 20/min) te respecteren
               usleep(3500000); 
           } else {
               echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
