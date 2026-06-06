@@ -34,53 +34,38 @@ jobs:
           # Schakel over naar de Nederlandse CSV in het Python-script
           sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
           
-          # Herschrijf bing_hu_voice.php met automatische getal-conversie om Azure 403 filters te omzeilen
+          # Herschrijf bing_hu_voice.php met de exacte argument-indexen en UTF-8 encoding
           cat << 'EOF' > bing_hu_voice.php
           <?php
           if ($argc < 4) exit(1);
           
+          // Gecorrigeerd: De juiste index-nummers voor de argumenten uit het Python-script
           $szoveg = $argv[1];
           $mentes = $argv[2];
           $hang = $argv[3];
           
-          // Azure Content Filter Bypass: Vervang uitgeschreven percentages door cijfers
-          if (strpos($szoveg, 'De batterij is') !== false && strpos($szoveg, 'procent') !== false) {
-              $woorden = [
-                  'honderd' => '100', 'negenennegentig' => '99', 'achtennegentig' => '98', 'zevenennegentig' => '97', 'zesennegentig' => '96', 'vijfennegentig' => '95', 'vierennegentig' => '94', 'drieennegentig' => '93', 'tweeennegentig' => '92', 'eenennegentig' => '91', 'negentig' => '90',
-                  'negenentachtig' => '89', 'achtentachtig' => '88', 'zevenentachtig' => '87', 'zesentachtig' => '86', 'vijfentachtig' => '85', 'vierentachtig' => '84', 'drieentachtig' => '83', 'tweeentachtig' => '82', 'eenentachtig' => '81', 'tachtig' => '80',
-                  'negenenzeventig' => '79', 'achtenzeventig' => '78', 'zevenenzeventig' => '77', 'zesenzeventig' => '76', 'vijfenzeventig' => '75', 'vierenzeventig' => '74', 'drieenzeventig' => '73', 'tweeenzeventig' => '72', 'eenenzeventig' => '71', 'zevenentig' => '70', 'zeventig' => '70',
-                  'negenenzestig' => '69', 'achtenzestig' => '68', 'zevenenzestig' => '67', 'zesenzestig' => '66', 'vijfenzestig' => '65', 'vierenzestig' => '64', 'drieenzestig' => '63', 'tweeenzestig' => '62', 'eenenzestig' => '61', 'zestig' => '60',
-                  'negenenvijftig' => '59', 'achtenvijftig' => '58', 'zevenenvijftig' => '57', 'zesenvijftig' => '56', 'vijfenvijftig' => '55', 'vierenvijftig' => '54', 'drieenvijftig' => '53', 'tweeenvijftig' => '52', 'eenenvijftig' => '51', 'vijftig' => '50',
-                  'negenenveertig' => '49', 'achtenveertig' => '48', 'zevenenveertig' => '47', 'zesenveertig' => '46', 'vijfenveertig' => '45', 'vierenveertig' => '44', 'drieenveertig' => '43', 'tweeenveertig' => '42', 'eenenveertig' => '41', 'veertig' => '40',
-                  'negenendertig' => '39', 'achtendertig' => '38', 'zevenendertig' => '37', 'zesendertig' => '36', 'vijfendertig' => '35', 'vierendertig' => '34', 'drieendertig' => '33', 'tweeendertig' => '32', 'eenendertig' => '31', 'dertig' => '30',
-                  'negevendertig' => '29', 'negenentwintig' => '29', 'achtentwintig' => '28', 'zevenentwintig' => '27', 'zesentwintig' => '26', 'vijfentwintig' => '25', 'vierentwintig' => '24', 'drieentwintig' => '23', 'tweeentwintig' => '22', 'eenentwintig' => '21', 'twintig' => '20',
-                  'negetien' => '19', 'negentien' => '19', 'achttien' => '18', 'zeventien' => '17', 'zestien' => '16', 'vijftien' => '15', 'veertien' => '14', 'dertien' => '13', 'twaalf' => '12', 'elf' => '11', 'tien' => '10',
-                  'negen' => '9', 'acht' => '8', 'zeven' => '7', 'zes' => '6', 'vijf' => '5', 'vier' => '4', 'drie' => '3', 'twee' => '2', 'een' => '1', 'één' => '1', 'nul' => '0'
-              ];
-              foreach ($woorden as $woord => $cijfer) {
-                  if (strpos($szoveg, $woord) !== false) {
-                      $szoveg = str_replace($woord . ' procent', $cijfer . ' procent', $szoveg);
-                      break;
-                  }
-              }
-          }
-          
           $dir = strtolower($hang);
           $filePath = $dir . "/" . $mentes . ".wav";
           
-          if (file_exists($filePath)) exit(0);
+          if (file_exists($filePath)) {
+              exit(0);
+          }
+          
           if (!is_dir($dir)) mkdir($dir, 0777, true);
           $apiKey = getenv('AZURE_SPEECH_KEY');
           
           $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
-          $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . htmlspecialchars($szoveg, ENT_XML1) . "</lang></voice></speak>";
+          
+          // Zorg dat vreemde tekens (ë, é, -) veilig omgezet worden naar XML
+          $cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
+          $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . $cleanText . "</lang></voice></speak>";
           
           $ch = curl_init("https://microsoft.com");
           curl_setopt($ch, CURLOPT_POST, 1);
           curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
           curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
           curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-              "Content-type: application/ssml+xml",
+              "Content-type: application/ssml+xml; charset=utf-8",
               "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
               "Ocp-Apim-Subscription-Key: " . $apiKey,
               "Ocp-Apim-Subscription-Region: northeurope",
@@ -90,9 +75,10 @@ jobs:
           $result = curl_exec($ch);
           $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
           curl_close($ch);
+          
           if ($http_code === 200 && $result) {
               file_put_contents($filePath, $result);
-              usleep(200000); 
+              usleep(250000); 
           } else {
               echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
           }
