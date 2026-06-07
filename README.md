@@ -5,7 +5,7 @@ I have created 2 voice packages using Microsoft Azure TTS for Dreame vacuums: **
 **Compatibility and info:**
 
 * **Supported devices:** Likely works on all **Dreame**, **Mova**, and **Truver** robot vacuums. (Note: The wording is optimized for rotary mop pads; models with roller mops might have slight terminology discrepancies, but functionality remains unaffected.)
-* **Tested on:** Dreame X50 Ultra Complete and L10 Prime.
+* **Tested on:** Dreame L50s Pro Ultra.
 * **Translation:** Since the original English package was incomplete for newer models, the missing parts were translated from the original Chinese voice package using auditory AI translation. Minor errors may occur, but functionality remains clear.
 
 ---
