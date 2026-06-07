@@ -1,85 +1,77 @@
+# Dreame NL TTS — Dutch Voice Packages for Dreame Vacuum Cleaners
 
-## English
+I have created 2 voice packages using Microsoft Azure TTS for Dreame vacuums: **Fenna** and **Maarten** (native Dutch voices).
 
-I have created 4 voice packages using Microsoft Azure TTS for Dreame vacuums. Two of these are **Tamás** and **Noémi** (native Hungarian voices), while **Ryan** and **Jenny** are Multilingual voices that also support Hungarian. The multilingual voices have a unique charm, but they are quite good.
+**Compatibility and info:**
 
-**Compatibility and Info:**
+* **Supported devices:** Likely works on all **Dreame**, **Mova**, and **Truver** robot vacuums. (Note: The wording is optimized for rotary mop pads; models with roller mops might have slight terminology discrepancies, but functionality remains unaffected.)
+* **Tested on:** Dreame X50 Ultra Complete and L10 Prime.
+* **Translation:** Since the original English package was incomplete for newer models, the missing parts were translated from the original Chinese voice package using auditory AI translation. Minor errors may occur, but functionality remains clear.
 
-  * **Supported Devices:** Likely works on all **Dreame**, as well as **Mova** and **Truver** robot vacuums. (Note: The wording is optimized for rotary mop pads; models with roller mops might have slight terminology discrepancies, but functionality remains unaffected.)
-  * **Tested on:** Dreame X50 Ultra Complete and L10 Prime.
-  * **Translation:** Since the original English package was incomplete for newer models, the missing parts were translated from the original Chinese voice package using auditory AI translation. Therefore, minor errors may occur, but the functionality remains clear.
+---
 
-### Voice Package Data (Updated):
+## Voice Package Data
 
-  - **tamas\_dreame\_hu\_voice** (Microsoft TTS - hu-HU-TamasNeural):
+- **fenna\_dreame\_nl\_voice** (Microsoft TTS - nl-NL-FennaNeural):
 
-      - URL: `https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/tamas_dreame_hu_voice`
-      - MD5 hash: `c11b64d9d473d7c0404836822e6f3d74`
-      - File size: `13320907` bytes
+  - URL: `https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl/fenna_dreame_nl_voice`
+  - MD5 hash: *(generated after workflow run)*
+  - File size: *(generated after workflow run)*
 
-  - **noemi\_dreame\_hu\_voice** (Microsoft TTS - hu-HU-NoemiNeural):
+- **maarten\_dreame\_nl\_voice** (Microsoft TTS - nl-NL-MaartenNeural):
 
-      - URL: `https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/noemi_dreame_hu_voice`
-      - MD5 hash: `2f69f5bd66fd7199353169efaf05ed92`
-      - File size: `15148480` bytes
+  - URL: `https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl/maarten_dreame_nl_voice`
+  - MD5 hash: *(generated after workflow run)*
+  - File size: *(generated after workflow run)*
 
-  - **ryan\_dreame\_hu\_voice** (Microsoft TTS - en-US-RyanMultilingualNeural):
+---
 
-      - URL: `https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/ryan_dreame_hu_voice`
-      - MD5 hash: `f7b0b17793f4a50e9cecfd73ca9beaf3`
-      - File size: `13500677` bytes
+## Installation Guide
 
-  - **jenny\_dreame\_hu\_voice** (Microsoft TTS - en-US-JennyMultilingualV2Neural):
+### 1. HomeAssistant (Dreame Vacuum Integration)
 
-      - URL: `https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/jenny_dreame_hu_voice`
-      - MD5 hash: `f2855619fcf421dc08f163d29737e665`
-      - File size: `13528449` bytes
-
-### Installation Guide:
-
-#### 1\. HomeAssistant (Dreame Vacuum Integration)
-
-Run the following command under Developer Tools / Services (example for Noémi voice):
+Run the following command under Developer Tools / Services (example for Fenna):
 
 ```yaml
 service: dreame_vacuum.vacuum_install_voice_pack
 data:
-  url: >-
-    [https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/noemi_dreame_hu_voice](https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/noemi_dreame_hu_voice)
-  lang_id: hu
-  md5: "2f69f5bd66fd7199353169efaf05ed92"
-  size: 15148480
+  url: https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl/fenna_dreame_nl_voice
+  lang_id: nl
+  md5: "<md5-hash>"
+  size: <file-size-in-bytes>
 target:
   entity_id: vacuum.dreamebot_<<<entity_id>>>
 ```
 
-#### 2\. Valetudo
+### 2. Valetudo
 
-Go to `Robot Settings` -\> `Misc Settings`.
-In the `Voice packs` section, enter the following (example for Noémi voice):
+Go to `Robot Settings` → `Misc Settings`.
+In the `Voice packs` section, enter the following (example for Fenna):
 
-  * **URL:** `https://raw.githubusercontent.com/v1k70rk4/dreame_hu_tts/main/dreame_voicepack_hu/noemi_dreame_hu_voice`
-  * **Language Code:** `hu`
-  * **Hash:** `2f69f5bd66fd7199353169efaf05ed92`
-  * **File size:** `15148480`
-    Then click the `Set Voice Pack` button.
+* **URL:** `https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl/fenna_dreame_nl_voice`
+* **Language Code:** `nl`
+* **Hash:** `<md5-hash>`
+* **File size:** `<file-size-in-bytes>`
 
-### Creating Your Own TTS Voice:
+Then click the `Set Voice Pack` button.
 
-If any sound is missing, you can create your own using the attached CSV, along with the PHP and Python scripts. You do not need this part if you are satisfied with the pre-made voice packages\!
+---
 
-1.  **API Key:** You need a Microsoft Azure Speech (Bing TTS) API key, which must be entered in line 12 of the `bing_hu_voice.php` file.
-2.  **Required Programs:** (Instructions above are for Windows, but Linux users can install via repo).
-      * PHP 7/8 (add to PATH)
-      * Vorbis-tools (add `oggenc.exe` to PATH)
-      * FFmpeg
-      * Python 3.11
-3.  **Usage:**
-      * `ttscreate.py VOICE --convert` : Generates WAVs from CSV -\> Normalizes -\> Converts to OGG -\> Copies non-TTS sounds -\> Cleans up placeholders -\> Creates .tar.gz -\> Generates MD5 and size info.
-      * `bing_hu_voice.php "text" filename VOICE` : Generates a single WAV file for corrections.
-      * `convert.py VOICE` : Converts WAV to OGG if skipped previously.
+## Creating Your Own TTS Voice
 
-<!-- end list -->
+If you want to customize a voice or a sound is missing, you can generate your own package using the included CSV, PHP, and Python scripts. You do not need this if you are satisfied with the pre-made voice packages!
 
-```
-```
+1. **API key:** You need a Microsoft Azure Speech API key. Save it as the secret `AZURE_SPEECH_KEY` in your GitHub repository settings.
+2. **Required programs:** (automatically installed via the GitHub Actions workflow)
+   * PHP 8.1
+   * Vorbis-tools (`oggenc`)
+   * FFmpeg
+   * Python 3
+3. **Usage via GitHub Actions:**
+   * Go to **Actions → Create Voice Package → Run workflow**
+   * Choose a voice (Fenna or Maarten)
+   * After completion, the `.tar.gz` file is available as a downloadable artifact, with the MD5 hash and file size printed in the workflow logs.
+4. **Manual usage (local):**
+   * `python ttscreate.py Fenna --convert` — Generates WAV files from CSV → normalizes → converts to OGG → copies non-TTS sounds → cleans up placeholders → creates `.tar.gz` → outputs MD5 and size info.
+   * `php bing_hu_voice.php "text" filename Fenna` — Generates a single WAV file for corrections.
+   * `python convert.py Fenna` — Converts WAV to OGG if the conversion was skipped previously.
