@@ -36,14 +36,17 @@ jobs:
         run: |
           cd "TTS voice creator"
           STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
+          OGG_MAP="${STEM_KLEIN}-ogg"
 
-          if [ -d "$STEM_KLEIN" ]; then
-            tar -czf ../dreame_voicepack_nl.tar.gz "$STEM_KLEIN"
+          if [ -d "$OGG_MAP" ]; then
+            echo "OGG-map gevonden: $OGG_MAP"
+            tar -czf ../dreame_voicepack_nl.tar.gz "$OGG_MAP"
+          elif [ -d "$STEM_KLEIN" ]; then
+            echo "Alleen WAV-map gevonden, OGG-conversie is mislukt!"
+            exit 1
           else
-            echo "Map '$STEM_KLEIN' niet gevonden, alles inpakken als fallback..."
-            tar -czf ../dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null \
-              || tar -czf ../dreame_voicepack_nl.tar.gz ./* \
-              || true
+            echo "Geen map gevonden!"
+            exit 1
           fi
 
       - name: Genereer installatiegegevens (grootte en MD5)
