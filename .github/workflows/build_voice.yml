@@ -20,92 +20,99 @@ jobs:
           php-version: '8.1'
           extensions: curl
 
-      - name: Systeertools installeren
+      - name: Systeemtools installeren
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg vorbis-tools
-          
+
       - name: Stemmen genereren via Azure
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
           cd "TTS voice creator"
-          
-          # 1. Schakel over naar de Nederlandse CSV in het Python-script
-          sed -i 's/all_dreame_hu.csv/all_dreame_nl.csv/g' ttscreate.py
-          
-          # 2. FIX VOOR SPATIES: Dwing het Python-script om aanhalingstekens rond de tekst te zetten bij de PHP-aanroep
-          sed -i 's/bing_hu_voice.php %s/bing_hu_voice.php "%s"/g' ttscreate.py
-          
-          # 3. Herschrijf bing_hu_voice.php met de exacte argument-indexen en Azure Rate-Limit vertraging
-          cat << 'EOF' > bing_hu_voice.php
-          <?php
-          if ($argc < 4) exit(1);
-          
-          // Exacte argumentenmapping volgens de handleiding van de repository
-          $szoveg = $argv[1];
-          $mentes = $argv[2];
-          $hang = $argv[3];
-          
-          $dir = strtolower($hang); 
-          $filePath = $dir . "/" . $mentes . ".wav";
-          
-          if (file_exists($filePath)) {
-              exit(0);
-          }
-          
-          if (!is_dir($dir)) mkdir($dir, 0777, true);
-          $apiKey = getenv('AZURE_SPEECH_KEY');
-          
-          $voiceName = ($hang == "Maarten") ? "nl-NL-MaartenNeural" : "nl-NL-FennaNeural";
-          
-          $cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
-          $ssml = "<speak version='1.0' xml:lang='nl-NL'><voice xml:lang='nl-NL' name='" . $voiceName . "'><lang xml:lang='nl-NL'>" . $cleanText . "</lang></voice></speak>";
-          
-          $ch = curl_init("https://microsoft.com");
-          curl_setopt($ch, CURLOPT_POST, 1);
-          curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
-          curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-          curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-              "Content-type: application/ssml+xml; charset=utf-8",
-              "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
-              "Ocp-Apim-Subscription-Key: " . $apiKey,
-              "Ocp-Apim-Subscription-Region: northeurope",
-              "User-Agent: TTSPHP"
-          ));
-          curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-          $result = curl_exec($ch);
-          $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-          curl_close($ch);
-          
-          if ($http_code === 200 && $result) {
-              file_put_contents($filePath, $result);
-              // Wacht 3,5 seconden om de Azure F0 gratis limiet (max 20 aanvragen per minuut) te respecteren
-              usleep(3500000); 
-          } else {
-              echo "Fout bij downloaden code " . $http_code . " voor tekst: " . $szoveg . "\n";
-              sleep(4);
-          }
-          ?>
-          EOF
-          
-          # Start het genereren en converteren van de stemmen volgens de originele methode
+
+          # 1. Schakel over naar de Nederlandse CSV
+          sed -i 's/all_dreame_hu\.csv/all_dreame_nl.csv/g' ttscreate.py
+
+          # 2. Vervang de PHP-aanroep zodat tekst met spaties correct wordt doorgegeven
+          sed -i 's|bing_hu_voice\.php %s|bing_hu_voice.php "%s"|g' ttscreate.py
+
+          # 3. Schrijf een volledig nieuw bing_hu_voice.php (zonder inspringing!)
+          cat > bing_hu_voice.php << 'PHPEOF'
+<?php
+if ($argc < 4) exit(1);
+
+$szoveg = $argv[1];
+$mentes = $argv[2];
+$hang   = $argv[3];
+
+$dir      = strtolower($hang);
+$filePath = $dir . "/" . $mentes . ".wav";
+
+if (file_exists($filePath)) {
+    exit(0);
+}
+
+if (!is_dir($dir)) {
+    mkdir($dir, 0777, true);
+}
+
+$apiKey    = getenv('AZURE_SPEECH_KEY');
+$region    = 'northeurope';
+$voiceName = ($hang === 'Maarten') ? 'nl-NL-MaartenNeural' : 'nl-NL-FennaNeural';
+
+$cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
+$ssml = "<speak version='1.0' xml:lang='nl-NL'>"
+      . "<voice xml:lang='nl-NL' name='" . $voiceName . "'>"
+      . "<lang xml:lang='nl-NL'>" . $cleanText . "</lang>"
+      . "</voice></speak>";
+
+$endpoint = "https://" . $region . ".tts.speech.microsoft.com/cognitiveservices/v1";
+
+$ch = curl_init($endpoint);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/ssml+xml; charset=utf-8",
+    "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
+    "Ocp-Apim-Subscription-Key: " . $apiKey,
+    "User-Agent: TTSPHP"
+]);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result    = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($http_code === 200 && $result) {
+    file_put_contents($filePath, $result);
+    // Wacht 3,5 seconden om de Azure F0-limiet (20 req/min) te respecteren
+    usleep(3500000);
+} else {
+    fwrite(STDERR, "Fout HTTP $http_code voor: $szoveg\n");
+    sleep(4);
+    exit(1);
+}
+PHPEOF
+
+          # 4. Genereer en converteer de stemmen
           echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
 
-      - name: Handmatig inpakken van de gegenereerde bestanden
+      - name: Voicepakket inpakken
         run: |
           cd "TTS voice creator"
           STEM_KLEIN=$(echo "${{ github.event.inputs.voice }}" | tr '[:upper:]' '[:lower:]')
-          
-          # Controleer of de door het script gemaakte map bestaat en pak deze in
+
           if [ -d "$STEM_KLEIN" ]; then
             tar -czf ../dreame_voicepack_nl.tar.gz "$STEM_KLEIN"
           else
-            # Als fallback pakken we alle ogg/wav bestanden in
-            tar -czf ../dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null || tar -czf ../dreame_voicepack_nl.tar.gz ./* || true
+            echo "Map '$STEM_KLEIN' niet gevonden, alles inpakken als fallback..."
+            tar -czf ../dreame_voicepack_nl.tar.gz ./**/*.ogg ./**/*.wav 2>/dev/null \
+              || tar -czf ../dreame_voicepack_nl.tar.gz ./* \
+              || true
           fi
 
-      - name: Genereer installatiegegevens (Grootte en MD5)
+      - name: Genereer installatiegegevens (grootte en MD5)
         run: |
           echo "=== INSTALLATIE INFO VOOR HOMEASSISTANT / VALETUDO ==="
           echo "Bestandsgrootte (bytes): $(stat -c%s dreame_voicepack_nl.tar.gz)"
