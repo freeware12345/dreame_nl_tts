@@ -40,12 +40,10 @@ jobs:
 
           if [ -d "$OGG_MAP" ]; then
             echo "OGG-map gevonden: $OGG_MAP"
-            tar -czf ../dreame_voicepack_nl.tar.gz "$OGG_MAP"
-          elif [ -d "$STEM_KLEIN" ]; then
-            echo "Alleen WAV-map gevonden, OGG-conversie is mislukt!"
-            exit 1
+            cd "$OGG_MAP"
+            tar -czf ../../dreame_voicepack_nl.tar.gz ./*.ogg
           else
-            echo "Geen map gevonden!"
+            echo "OGG-map '$OGG_MAP' niet gevonden!"
             exit 1
           fi
 
