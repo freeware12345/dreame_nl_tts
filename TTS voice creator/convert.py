@@ -20,8 +20,8 @@ if voice not in voice_options:
     raise ValueError(f"Ongeldige stem. Kies uit: {', '.join(voice_options)}.")
 
 current_directory = os.getcwd()
-input_folder    = os.path.join(current_directory, voice.lower())
-output_folder   = os.path.join(current_directory, f'{voice.lower()}-ogg')
+input_folder     = os.path.join(current_directory, voice.lower())
+output_folder    = os.path.join(current_directory, f'{voice.lower()}-ogg')
 sound_ogg_folder = os.path.join(current_directory, 'sound-ogg')
 
 if not os.path.exists(output_folder):
@@ -60,7 +60,7 @@ if os.path.exists(sound_ogg_folder):
 for filepath in glob.glob(os.path.join(output_folder, 's*.ogg')):
     os.remove(filepath)
 
-# Inpakken als tar.gz
+# Inpakken als tar.gz — bestanden direct in de root, geen submap
 tar_gz_filename = os.path.join(current_directory, f'{voice.lower()}-ogg.tar.gz')
 with tarfile.open(tar_gz_filename, "w:gz") as tar:
     for filename in os.listdir(output_folder):
@@ -79,6 +79,6 @@ file_size = os.path.getsize(tar_gz_filename)
 output_txt_file = tar_gz_filename + '.txt'
 with open(output_txt_file, 'w') as f:
     f.write(f"MD5 hash: {md5_hash}\n")
-    f.write(f"Bestandsgrootte: {file_size} bytes\n")
+    f.write(f"File size: {file_size} bytes\n")
 
-print(f"Klaar! MD5: {md5_hash} | Grootte: {file_size} bytes")
+print(f"Done! MD5: {md5_hash} | Size: {file_size} bytes")
