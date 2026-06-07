@@ -1,128 +1,54 @@
 <?php
-// Ellenőrizzük, hogy megvan-e a szükséges paraméterszám
-if ($argc < 4) {
-    echo "Használat: bing_hu_voice.php \"szöveg\" fájlnév hang\n";
-    echo "Példa: php bing_hu_voice.php \"Szia világ\" kimenet Fenna\n";
-    exit(1);
-}
+if ($argc < 4) exit(1);
 
-// Bemeneti paraméterek átvétele
 $szoveg = $argv[1];
 $mentes = $argv[2];
-$hang = $argv[3];
+$hang   = $argv[3];
 
-// --- ÚJ RÉSZ: Ellenőrzés, hogy létezik-e már a fájl ---
-$dir = strtolower($hang); // Mappa neve
-$filePath = $dir . "/" . $mentes . ".wav"; // Teljes útvonal
+$dir      = strtolower($hang);
+$filePath = $dir . "/" . $mentes . ".wav";
 
 if (file_exists($filePath)) {
-    echo "--------------------------------------------------\n";
-    echo "A fájl már létezik: $filePath\n";
-    echo "TTS generálás és API hívás KIHAGYVA.\n";
-    echo "--------------------------------------------------\n";
-    exit(0); // Kilépünk, nem csinálunk semmit tovább
-}
-// -------------------------------------------------------
-
-// --- KONFIGURÁCIÓ ---
-// IDE ÍRD BE AZ API KULCSODAT!
-$apiKey = "API_KULCS"; 
-
-$AccessTokenUri = "API_KULCS";
-$ttsServiceUri = "https://northeurope.tts.speech.microsoft.com/cognitiveservices/v1";
-
-// 1. LÉPÉS: Access Token beszerzése
-$options = array(
-    'http' => array(
-        'header'  => "Ocp-Apim-Subscription-Key: " . $apiKey . "\r\n" .
-                     "content-length: 0\r\n",
-        'method'  => 'POST',
-        'ignore_errors' => true 
-    ),
-);
-
-$context = stream_context_create($options);
-
-echo "Token lekérése...\n";
-$access_token = @file_get_contents($AccessTokenUri, false, $context);
-
-if ($access_token === false) {
-    $error = error_get_last();
-    throw new Exception("Hiba a Token lekérésekor ($AccessTokenUri): " . ($error['message'] ?? 'Ismeretlen hiba'));
+    exit(0);
 }
 
-// 2. LÉPÉS: SSML XML összeállítása
-$doc = new DOMDocument();
-$root = $doc->createElement("speak");
-$root->setAttribute("version", "1.0");
-$root->setAttribute("xml:lang", "nl-NL");
-
-$voice = $doc->createElement("voice");
-$voice->setAttribute("xml:lang", "nl-NL");
-
-switch ($hang) {
-    case "Fenna":
-        $voice->setAttribute("name", "nl-NL-FennaNeural");
-        break;
-    case "Maarten":
-        $voice->setAttribute("name", "nl-NL-MaartenNeural");
-        break;
-    default:
-        throw new Exception("Ismeretlen hang: $hang. (Elérhető: Fenna, Maarten)");
-}
-
-$lang = $doc->createElement("lang");
-$lang->setAttribute("xml:lang", "nl-NL");
-$text = $doc->createTextNode($szoveg);
-$lang->appendChild($text);
-$voice->appendChild($lang);
-
-$root->appendChild($voice);
-$doc->appendChild($root);
-$data = $doc->saveXML();
-
-// 3. LÉPÉS: Hang generálása (TTS kérés)
-$options = array(
-    'http' => array(
-        'header'  => "Content-type: application/ssml+xml\r\n" .
-                     "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm\r\n" .
-                     "Authorization: Bearer " . $access_token . "\r\n" .
-                     "X-Search-AppId: 07D3234E49CE426DAA29772419F436CA\r\n" .
-                     "X-Search-ClientID: 1ECFAE91408841A480F00935DC390960\r\n" .
-                     "User-Agent: TTSPHP\r\n" .
-                     "content-length: " . strlen($data) . "\r\n",
-        'method'  => 'POST',
-        'content' => $data,
-        'ignore_errors' => true
-    ),
-);
-
-$context = stream_context_create($options);
-
-// Mappa létrehozása, ha nem létezik (Bár fent már kiszámoltuk az útvonalat, a mappa fizikailag lehet, hogy nincs meg)
 if (!is_dir($dir)) {
-    if (!mkdir($dir, 0777, true)) {
-        throw new Exception("Nem sikerült létrehozni a mappát: $dir");
-    }
+    mkdir($dir, 0777, true);
 }
 
-echo "Hangfájl letöltése...\n";
-$result = @file_get_contents($ttsServiceUri, false, $context);
+$apiKey    = getenv('AZURE_SPEECH_KEY');
+$region    = 'northeurope';
+$voiceName = ($hang === 'Maarten') ? 'nl-NL-MaartenNeural' : 'nl-NL-FennaNeural';
 
-// 4. LÉPÉS: Eredmény mentése
-if ($result === false) {
-    $error = error_get_last();
-    throw new Exception("Hiba a TTS szolgáltatás hívásakor: " . ($error['message'] ?? 'Ismeretlen hiba'));
+$cleanText = htmlspecialchars($szoveg, ENT_XML1, 'UTF-8');
+$ssml = "<speak version='1.0' xml:lang='nl-NL'>"
+      . "<voice xml:lang='nl-NL' name='" . $voiceName . "'>"
+      . "<lang xml:lang='nl-NL'>" . $cleanText . "</lang>"
+      . "</voice></speak>";
+
+$endpoint = "https://" . $region . ".tts.speech.microsoft.com/cognitiveservices/v1";
+
+$ch = curl_init($endpoint);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $ssml);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: application/ssml+xml; charset=utf-8",
+    "X-Microsoft-OutputFormat: riff-16khz-16bit-mono-pcm",
+    "Ocp-Apim-Subscription-Key: " . $apiKey,
+    "User-Agent: TTSPHP"
+]);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$result    = curl_exec($ch);
+$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($http_code === 200 && $result) {
+    file_put_contents($filePath, $result);
+    // Wacht 3,5 seconden om de Azure F0-limiet (20 req/min) te respecteren
+    usleep(3500000);
 } else {
-    if (isset($http_response_header[0]) && strpos($http_response_header[0], '200') === false) {
-         throw new Exception("A szerver hibát dobott: " . $http_response_header[0]);
-    }
-    
-    // Fájl mentése (a $filePath változót már az elején definiáltuk)
-    if (file_put_contents($filePath, $result) === false) {
-        throw new Exception("Nem sikerült a fájlt menteni ide: $filePath");
-    }
-    
-    echo "Siker! Új fájl elmentve: $filePath\n";
+    fwrite(STDERR, "Fout HTTP $http_code voor: $szoveg\n");
+    sleep(4);
+    exit(1);
 }
-?>
