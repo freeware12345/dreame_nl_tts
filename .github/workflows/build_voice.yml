@@ -30,17 +30,7 @@ jobs:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
         run: |
           cd "TTS voice creator"
-
-          # 1. Schakel over naar de Nederlandse CSV
-          sed -i 's/all_dreame_hu\.csv/all_dreame_nl.csv/g' ttscreate.py
-
-          # 2. Vervang de PHP-aanroep zodat tekst met spaties correct wordt doorgegeven
-          sed -i 's|bing_hu_voice\.php %s|bing_hu_voice.php "%s"|g' ttscreate.py
-
-          # 3. bing_hu_voice.php staat al in de repo, geen inline schrijven nodig
-
-          # 4. Genereer en converteer de stemmen
-          echo "igen" | python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
+          python ttscreate.py ${{ github.event.inputs.voice }} --convert || true
 
       - name: Voicepakket inpakken
         run: |
