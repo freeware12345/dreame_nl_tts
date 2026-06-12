@@ -14,7 +14,7 @@ This repository provides a ready-to-use Dutch voice package for Dreame robot vac
 
 - **fenna\_dreame\_nl\_voice** (Microsoft TTS - nl-NL-FennaNeural):
 
-  - URL: `https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl.tar.gz`
+  - URL: `https://github.com/freeware12345/dreame_nl_tts/releases/download/v1.0.0/dreame_voicepack_nl.tar.gz`
   - MD5 hash: `bc3a870a830cdcbf792e5a1b5f6f9d0d`
   - File size: `12663370` bytes
 
@@ -29,7 +29,7 @@ Go to **Developer Tools → Actions**, and run the following:
 ```yaml
 action: dreame_vacuum.vacuum_install_voice_pack
 data:
-  url: https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl.tar.gz
+  url: https://github.com/freeware12345/dreame_nl_tts/releases/download/v1.0.0/dreame_voicepack_nl.tar.gz
   lang_id: nl
   md5: bc3a870a830cdcbf792e5a1b5f6f9d0d
   size: 12663370
@@ -44,7 +44,7 @@ Replace `vacuum.your_vacuum_entity_id` with your actual entity ID. You can find 
 Go to `Robot Settings` → `Misc Settings`.
 In the `Voice packs` section, enter the following:
 
-* **URL:** `https://raw.githubusercontent.com/freeware12345/dreame_nl_tts/main/dreame_voicepack_nl.tar.gz`
+* **URL:** `https://github.com/freeware12345/dreame_nl_tts/releases/download/v1.0.0/dreame_voicepack_nl.tar.gz`
 * **Language Code:** `nl`
 * **Hash:** `bc3a870a830cdcbf792e5a1b5f6f9d0d`
 * **File size:** `12663370`
